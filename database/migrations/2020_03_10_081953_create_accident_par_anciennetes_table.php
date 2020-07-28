@@ -15,6 +15,9 @@ class CreateAccidentParAnciennetesTable extends Migration
     {
         Schema::create('accident_par_anciennetes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('anciennete')->nullable();
+            $table->integer('nbr_accidents')->nullable();
+            $table->integer('bilan_id')->nullable();
             $table->timestamps();
         });
     }

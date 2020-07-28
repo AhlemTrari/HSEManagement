@@ -15,10 +15,10 @@ class CreateAccidentParJoursTable extends Migration
     {
         Schema::create('accident_par_jours', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('jour');
-            $table->integer('nbr_accidents');
-            $table->integer('nbr_jours');
-            $table->integer('bilan_id');
+            $table->string('jour')->nullable();
+            $table->integer('avec_arret')->nullable();
+            $table->integer('sans_arret')->nullable();
+            $table->integer('bilan_id')->nullable();
             $table->timestamps();
         });
     }

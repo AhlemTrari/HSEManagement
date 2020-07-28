@@ -1,502 +1,412 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Déclarations d'Accident de Travail | APMC Divindus</title>
+@section('titre')
+<title>Déclarations d'Accident de Travail | APMC Divindus</title>
+@endsection
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+@section('links')
 
-    <!-- Bootstrap Core Css -->
-    <link href="../../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+@endsection
 
-    <!-- Waves Effect Css -->
-    <link href="../../../plugins/node-waves/waves.css" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="../../../plugins/animate-css/animate.css" rel="stylesheet" />
-    <link href="../../../plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
-
-    <!-- Custom Css -->
-    <link href="../../../css/style.css" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../../../css/themes/all-themes.css" rel="stylesheet" />
-
-</head>
-
-<body class="theme-red">
-  <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <p>Patientez...</p>
-        </div>
-    </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="RECHERCHER...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">&emsp; &emsp; APMC - Divindus</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
-                    <!-- Notifications -->
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <i class="material-icons">notifications</i>
-                            <span class="label-count">7</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">NOTIFICATIONS</li>
-                            <li class="body">
-                                <ul class="menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-light-green">
-                                                <i class="material-icons">person_add</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>12 new members joined</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 14 mins ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-cyan">
-                                                <i class="material-icons">add_shopping_cart</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>4 sales made</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 22 mins ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-red">
-                                                <i class="material-icons">delete_forever</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4><b>Nancy Doe</b> deleted account</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 3 hours ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-orange">
-                                                <i class="material-icons">mode_edit</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4><b>Nancy</b> changed name</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 2 hours ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-blue-grey">
-                                                <i class="material-icons">comment</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4><b>John</b> commented your post</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 4 hours ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-light-green">
-                                                <i class="material-icons">cached</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4><b>John</b> updated status</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 3 hours ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-purple">
-                                                <i class="material-icons">settings</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>Settings updated</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> Yesterday
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="javascript:void(0);">View All Notifications</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- #END# Notifications -->
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
-            <!-- User Info -->
-            <div class="user-info">
-                <div class="image">
-                    <img src="../../../images/user.png" width="48" height="48" alt="User" />
-                </div>
-                <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nom Prenom</div>
-                    <div class="email">email@example.com</div>
-                    <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profil</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Se déconnecter</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- #User Info -->
-            <!-- Menu -->
-            <div class="menu">
-                <ul class="list">
-                    <li class="header">MENU</li>
-                    <li>
-                        <a href="../../dashboard.html">
-                            <i class="material-icons">home</i>
-                            <span>Acceuil</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">security</i>
-                            <span>HSE</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="../BAT/index.html">
-                                    <span>Bilan des accidents de travail</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../BAM/index.html">
-                                    <span>Bilan A.M</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../MT/index.html" >
-                                    <span>Médecine de travail</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../CHS/index.html">
-                                    <span>Commission d'unité Hygiène et Sécurité</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../PHS/index.html">
-                                    <span>Plan d'Hygiène et de Sécurité</span>
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a href="index.html">
-                                    <span>D.A.T</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../DAM/index.html">
-                                    <span>D.A.M</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../IHSE/index.html">
-                                    <span>Induction HSE</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../MLCI/index.html">
-                                    <span>MLCI</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">business_center</i>
-                            <span>SIE</span>
-                        </a>
-                        <ul class="ml-menu">
-                            
-                            <li>
-                                <a href="#"></a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="../../biblio.html">
-                            <i class="material-icons col-amber">donut_large</i>
-                            <span>Bibliothèque</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../cartes.html">
-                            <i class="material-icons col-light-blue">donut_large</i>
-                            <span>Cartes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../SMHSE/index.html">
-                            <i class="material-icons col-red">donut_large</i>
-                            <span>S.M.HSE</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- #Menu -->
-        </aside>
-        <!-- #END# Left Sidebar -->
-        <!-- Right Sidebar -->
-        <aside id="rightsidebar" class="right-sidebar">
-            <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
-                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+@section('menu')
+<div class="menu">
+    <ul class="list">
+        <li class="header">MENU</li>
+        <li>
+            <a href="{{url('home')}}">
+                <i class="material-icons">home</i>
+                <span>Acceuil</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('employes')}}">
+                <i class="material-icons">person</i>
+                <span>Employés</span>
+            </a>
+        </li>
+        <li  class="active">
+            <a href="javascript:void(0);" class="menu-toggle">
+                <i class="material-icons">security</i>
+                <span>HSE</span>
+            </a>
+            <ul class="ml-menu">
+                <li>
+                    <a href="{{url('/BilanAccidentT')}}">
+                        <span>Bilan des accidents de travail</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/BilanAccidentM')}}">
+                        <span>Bilan des accidents de matériels</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/MedcineDeTravail')}}" >
+                        <span>Médecine de travail</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/CommissionHygieneSecurite')}}">
+                        <span>Commission d'unité Hygiène et Sécurité</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/PlanHygieneSecurite')}}">
+                        <span>Plan d'Hygiène et de Sécurité</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{url('/DeclarationAccidentT')}}">
+                        <span>Déclarations des accidents de travail</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/DeclarationAccidentM')}}">
+                        <span>Déclarations des accidents de matériels</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/InductionHSE')}}">
+                        <span>Induction HSE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/MLCI')}}">
+                        <span>MLCI</span>
+                    </a>
+                </li>
             </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-                    <ul class="demo-choose-skin">
-                        <li data-theme="red" class="active">
-                            <div class="red"></div>
-                            <span>Red</span>
-                        </li>
-                        <li data-theme="pink">
-                            <div class="pink"></div>
-                            <span>Pink</span>
-                        </li>
-                        <li data-theme="purple">
-                            <div class="purple"></div>
-                            <span>Purple</span>
-                        </li>
-                        <li data-theme="deep-purple">
-                            <div class="deep-purple"></div>
-                            <span>Deep Purple</span>
-                        </li>
-                        <li data-theme="indigo">
-                            <div class="indigo"></div>
-                            <span>Indigo</span>
-                        </li>
-                        <li data-theme="blue">
-                            <div class="blue"></div>
-                            <span>Blue</span>
-                        </li>
-                        <li data-theme="light-blue">
-                            <div class="light-blue"></div>
-                            <span>Light Blue</span>
-                        </li>
-                        <li data-theme="cyan">
-                            <div class="cyan"></div>
-                            <span>Cyan</span>
-                        </li>
-                        <li data-theme="teal">
-                            <div class="teal"></div>
-                            <span>Teal</span>
-                        </li>
-                        <li data-theme="green">
-                            <div class="green"></div>
-                            <span>Green</span>
-                        </li>
-                        <li data-theme="light-green">
-                            <div class="light-green"></div>
-                            <span>Light Green</span>
-                        </li>
-                        <li data-theme="lime">
-                            <div class="lime"></div>
-                            <span>Lime</span>
-                        </li>
-                        <li data-theme="yellow">
-                            <div class="yellow"></div>
-                            <span>Yellow</span>
-                        </li>
-                        <li data-theme="amber">
-                            <div class="amber"></div>
-                            <span>Amber</span>
-                        </li>
-                        <li data-theme="orange">
-                            <div class="orange"></div>
-                            <span>Orange</span>
-                        </li>
-                        <li data-theme="deep-orange">
-                            <div class="deep-orange"></div>
-                            <span>Deep Orange</span>
-                        </li>
-                        <li data-theme="brown">
-                            <div class="brown"></div>
-                            <span>Brown</span>
-                        </li>
-                        <li data-theme="grey">
-                            <div class="grey"></div>
-                            <span>Grey</span>
-                        </li>
-                        <li data-theme="blue-grey">
-                            <div class="blue-grey"></div>
-                            <span>Blue Grey</span>
-                        </li>
-                        <li data-theme="black">
-                            <div class="black"></div>
-                            <span>Black</span>
-                        </li>
-                    </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="settings">
-                    <div class="demo-settings">
-                        <p>GENERAL SETTINGS</p>
-                        <ul class="setting-list">
-                            <li>
-                                <span>Report Panel Usage</span>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked><span class="lever"></span></label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Email Redirect</span>
-                                <div class="switch">
-                                    <label><input type="checkbox"><span class="lever"></span></label>
-                                </div>
-                            </li>
-                        </ul>
-                        <p>SYSTEM SETTINGS</p>
-                        <ul class="setting-list">
-                            <li>
-                                <span>Notifications</span>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked><span class="lever"></span></label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Auto Updates</span>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked><span class="lever"></span></label>
-                                </div>
-                            </li>
-                        </ul>
-                        <p>ACCOUNT SETTINGS</p>
-                        <ul class="setting-list">
-                            <li>
-                                <span>Offline</span>
-                                <div class="switch">
-                                    <label><input type="checkbox"><span class="lever"></span></label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Location Permission</span>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked><span class="lever"></span></label>
-                                </div>
-                            </li>
-                        </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" class="menu-toggle">
+                <i class="material-icons">business_center</i>
+                <span>SIE</span>
+            </a>
+            <ul class="ml-menu">
+               
+                <li>
+                    <a href="pages/ui/notifications.html"></a>
+                </li>
+                
+            </ul>
+        </li>
+        <li>
+            <a href="{{url('/Bibliotheque')}}">
+                <i class="material-icons col-amber">donut_large</i>
+                <span>Bibliothèque</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('/Cartes')}}">
+                <i class="material-icons col-light-blue">donut_large</i>
+                <span>Cartes</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('/S_M_HSE')}}">
+                <i class="material-icons col-red">donut_large</i>
+                <span>S.M.HSE</span>
+            </a>
+        </li>
+    </ul>
+</div>
+@endsection
+
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom: 25px">
+            <div class="col-md-8 col-lg-8">
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <a href="{{url('/exportDeclarationTravail/'.$declaration->id)}}" type="button" target=”_blank” class="btn bg-teal btn-block btn-lg waves-effect">Exporter cette déclaration</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <center>
+                                D.A.T &nbsp; n° {{$declaration->num}} &nbsp; créer le &nbsp; {{$declaration->created_at->format('d-m-Y')}}
+                            </center>
+                        </h2>
                     </div>
                 </div>
             </div>
-        </aside>
-        <!-- #END# Right Sidebar -->
-    </section>
-
-    <section class="content">
-        <div class="container-fluid">
-           
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="header bg-blue-grey">
+                    <center>
+                    <h2>
+                        Victime
+                    </h2>
+                    </center>
+                </div>
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-5">
+                                <strong>Matricule : &nbsp;</strong>
+                                <span> {{$declaration->victime->matricule}}</span>
+                        </div>
+                        <div class="col-sm-5">
+                                <strong>Qualification professionnelle : &nbsp;</strong>
+                                <span> {{$declaration->victime->fonction}}</span>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-5">
+                                <strong>Nom : &nbsp;</strong>
+                                <span> {{$declaration->victime->nom}}</span>
+                        </div>
+                        <div class=" col-sm-5">
+                                <strong>Prénom : &nbsp;</strong>
+                                <span> {{$declaration->victime->prenom}}</span>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-5">
+                            <p>
+                                <strong>Date de naissance : &nbsp;</strong>
+                                <span> {{$declaration->victime->date_naissance}}</span>
+                            </p>
+                        </div>
+                        <div class="col-sm-5">
+                            <p>
+                                <strong>Date de recrutement : &nbsp;</strong>
+                                <span> {{$declaration->victime->date_recrutement}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="header bg-light-green"> 
+                    <!-- bg-light-blue -->
+                    <center>
+                    <h2>
+                        Accident
+                    </h2>
+                    </center>
+                </div>
+                
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>L’accident à t-il fait d’autres victimes ? &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            @if ($declaration->autre_victimes)
+                            <span>Oui</span>
+                            @else
+                            <span>Non</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Lieu exact de l’accident : &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->lieu}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Site (chantier): &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->chantier}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Date : &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->date}} &nbsp;</span>
+                            
+                            <strong>à : &nbsp;</strong>
+                            <span>{{$declaration->heure}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Que faisait la victime au moment de l’accident? &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->travail_courrant}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Nature des lésions : &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->nature_lesion}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Siège des lésions : &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->siege_lesion}}</span>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Eléments matériels à l’origine de l’accident : &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->materiel}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </section>
-
-
-        <!-- Jquery Core Js -->
-        <script src="../../../plugins/jquery/jquery.min.js"></script>
-
-        <!-- Bootstrap Core Js -->
-        <script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
-    
-        <!-- Select Plugin Js -->
-        <script src="../../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
-    
-        <!-- Slimscroll Plugin Js -->
-        <script src="../../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-    
-        <!-- Waves Effect Plugin Js -->
-        <script src="../../../plugins/node-waves/waves.js"></script>
-    
-        <!-- Editable Table Plugin Js -->
-        <script src="../../../plugins/editable-table/mindmup-editabletable.js"></script>
-    
-        <!-- Jquery Spinner Plugin Js -->
-        <script src="../../../plugins/jquery-spinner/js/jquery.spinner.js"></script>
-    
-    
-        <!-- Custom Js -->
-        <script src="../../../js/admin.js"></script>
-        <script src="../../../js/pages/tables/editable-table.js"></script>
-    
-        <!-- Demo Js -->
-        <script src="../../../js/demo.js"></script>
-
-    </body>
-    
-    </html>
+        
+        <div class="row">
+            <div class="card">
+                <div class="header bg-blue-grey"> 
+                    <!-- bg-light-blue -->
+                    <center>
+                    <h2>
+                        Causes de l'accident
+                    </h2>
+                    </center>
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>Causes directes : &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>{{$declaration->cause_direct}}</span>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>Causes indirectes : &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>{{$declaration->cause_indirect}}</span>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>Conséquences : &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>{{$declaration->consequences}}
+                                    @if ($declaration->nbr_arret)
+                                        ({{$declaration->nbr_arret}} Jours)
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>Victime transporté à : &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>{{$declaration->transporter_a}}</span>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>Par quel moyen ? &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>{{$declaration->moyen_par}}</span>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <strong>L’accident a-t-il été causé par un tiers ? &nbsp;</strong>
+                            </div>
+                            <div class="col-sm-6">
+                                @if ($declaration->tiers_id)
+                                <span>Oui</span>
+                                @else
+                                <span>Non</span>
+                                @endif
+                            </div>
+                        </div>
+                        @if ($declaration->tiers_id)
+                            <div class="row clearfix">
+                                <div class="col-sm-offset-4 col-sm-6">
+                                <p> <h4> Coordonnées du tiers </h4></p>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-offset-1 col-sm-5">
+                                    <strong>Nom : &nbsp;</strong>
+                                    <span>{{$declaration->tiers->nom}}</span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <strong>Prénom : &nbsp;</strong>
+                                    <span>{{$declaration->tiers->prenom}}</span>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-offset-1 col-sm-5">
+                                    <strong>Date de recrutement : &nbsp;</strong>
+                                    <span>{{$declaration->tiers->date_recrutement}}</span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <strong>Qualification professionnelle : &nbsp;</strong>
+                                    <span>{{$declaration->tiers->fonction}}</span>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="header bg-light-green">
+                    <center>
+                    <h2>
+                        Témoins
+                    </h2>
+                    </center>
+                </div>
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <strong>Nom et prénom des témoins &nbsp;</strong>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{$declaration->temoins}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="header bg-blue-grey">
+                    <center>
+                    <h2>
+                        Circonstances détaillées de l’accident
+                    </h2>
+                    </center>
+                </div>
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-sm-offset-1 col-sm-10">
+                        <span>{{$declaration->circonstances_detaillees}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br/><br/>
+        </div>
+    </div>
+</section>
+@endsection

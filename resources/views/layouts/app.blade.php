@@ -19,9 +19,21 @@
     <!-- Waves Effect Css -->
     <link href="{{asset('assets/plugins/node-waves/waves.css')}}" rel="stylesheet" />
 
+    <!--WaitMe Css-->
+    <link href="{{asset('assets/plugins/waitme/waitMe.css')}}" rel="stylesheet" />
+
     <!-- Animation Css -->
     <link href="{{asset('assets/plugins/animate-css/animate.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/plugins/jquery-spinner/css/bootstrap-spinner.css')}}" rel="stylesheet">
+
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="{{asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" />
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="{{asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="{{asset('assets/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
 
     <!-- Dropzone Css -->
     <link href="{{asset('assets/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
@@ -34,6 +46,9 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{asset('assets/css/themes/all-themes.css')}}" rel="stylesheet" />
+
+     @yield('links')
+
 </head>
 
 <body class="theme-red">
@@ -79,7 +94,11 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <li>
+                        <a href="javascript:void(0);" class="js-search" data-close="true">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </li>
                     <!-- #END# Call Search -->
                     <!-- Notifications -->
                     <!-- <li class="dropdown">
@@ -232,7 +251,7 @@
         </aside>
         <!-- #END# Left Sidebar -->
         <!-- Right Sidebar -->
-        <aside id="rightsidebar" class="right-sidebar">
+        <!-- <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
                 <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
                 <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
@@ -372,11 +391,27 @@
                     </div>
                 </div>
             </div>
-        </aside>
+        </aside> -->
         <!-- #END# Right Sidebar -->
     </section>
 
     @yield('content')
+
+     @yield('scripts')
+     <!-- Autosize Plugin Js -->
+   <script src="{{asset('assets/plugins/autosize/autosize.js')}}"></script>
+
+   <!-- Moment Plugin Js -->
+   <script src="{{asset('assets/plugins/momentjs/moment.js')}}"></script>
+
+   <!-- Bootstrap Material Datetime Picker Plugin Js -->
+   <script src="{{asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
+
+    <!-- Wait Me Plugin Js -->
+   <script src="{{asset('assets/plugins/waitme/waitMe.js')}}"></script>
+
+   <!-- Bootstrap Datepicker Plugin Js -->
+   <script src="{{asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 
     <!-- Jquery Core Js -->
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
@@ -400,9 +435,6 @@
     <script src="{{asset('assets/plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
     <script src="{{asset('assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js')}}"></script>
 
-        <!-- Editable Table Plugin Js -->
-    <script src="{{asset('assets/plugins/editable-table/mindmup-editabletable.js')}}"></script>
-
     <!-- Jquery Spinner Plugin Js -->
     <script src="{{asset('assets/plugins/jquery-spinner/js/jquery.spinner.js')}}"></script>
 
@@ -411,6 +443,10 @@
     <script src="{{asset('assets/js/pages/forms/advanced-form-elements.js')}}"></script>
     <script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
     <script src="{{asset('assets/js/pages/tables/editable-table.js')}}"></script>
+    
+    <script src="{{asset('assets/js/pages/cards/colored.js')}}"></script>    
+    <script src="{{asset('assets/js/pages/forms/basic-form-elements.js')}}"></script>
+    <script src="{{asset('assets/js/pages/forms/advanced-form-elements.js')}}"></script>
 
     <!-- Demo Js -->
     <script src="{{asset('assets/js/demo.js')}}"></script>

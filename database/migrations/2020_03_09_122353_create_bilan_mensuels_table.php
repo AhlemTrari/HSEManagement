@@ -15,10 +15,14 @@ class CreateBilanMensuelsTable extends Migration
     {
         Schema::create('bilan_mensuels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('annee');
-            $table->integer('mois');
-            $table->integer('nbr_accidents');
-            $table->integer('nbr_jours');
+            $table->integer('annee')->nullable();
+            $table->string('mois')->nullable();
+            $table->integer('nbr_accidents')->nullable();
+            $table->integer('nbr_jours')->nullable();
+            $table->integer('unite')->nullable(); // 1->targa; 2->hennaya
+            $table->integer('bilan_trimestriel_id')->nullable();
+            $table->integer('bilan_semestriel_id')->nullable();
+            $table->integer('bilan_annuel_id')->nullable();
             $table->timestamps();
         });
     }

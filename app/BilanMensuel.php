@@ -6,25 +6,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class BilanMensuel extends Model
 {
-    public function AccidentParJour()
+    public function accidentsParJour()
     {
-        return $this->hasOne('App\AccidentParJour');
+        return $this->hasMany('App\AccidentParJour', 'bilan_id');
     }
-    public function AccidentParHeur()
+    public function accidentParHeure()
     {
-        return $this->hasOne('App\AccidentParHeur');
+        return $this->hasMany('App\AccidentParHeur', 'bilan_id');
     }
-    public function AccidentParSiege()
+    public function accidentParSiege()
     {
-        return $this->hasOne('App\AccidentParSiege');
+        return $this->hasMany('App\AccidentParSiege', 'bilan_id');
     }
-    public function AccidentParAnciennete()
+    public function accidentParAnciennete()
     {
-        return $this->hasOne('App\AccidentParAnciennete');
+        return $this->hasMany('App\AccidentParAnciennete', 'bilan_id');
     }
-    public function AccidentParFct()
+    public function accidentParFct()
     {
-        return $this->hasOne('App\AccidentParFct');
+        return $this->hasMany('App\AccidentParFct', 'bilan_id');
     }
+    public function bilanAnuel()
+	{
+	    return $this->belongsTo('App\BilanAnnuel');
+    }
+    public function bilanTrimestriel()
+	{
+	    return $this->belongsTo('App\BilanTrimestriel');
+    }
+    public function bilanSemetriel()
+	{
+	    return $this->belongsTo('App\BilanSemestriel');
+	}
 
 }

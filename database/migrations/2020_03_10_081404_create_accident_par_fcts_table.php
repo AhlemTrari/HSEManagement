@@ -15,9 +15,9 @@ class CreateAccidentParFctsTable extends Migration
     {
         Schema::create('accident_par_fcts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('fonction');
-            $table->integer('nbr_accidents');
-            $table->integer('bilan_id');
+            $table->string('fonction')->nullable();
+            $table->integer('nbr_accidents')->nullable();
+            $table->integer('bilan_id')->nullable();
             $table->timestamps();
         });
     }

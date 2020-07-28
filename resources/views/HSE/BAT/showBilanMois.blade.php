@@ -1,7 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dash')
 
 @section('titre')
 <title>Bilan des accidents de travail | APMC Divindus</title>
+@endsection
+
+@section('links')
+
 @endsection
 
 @section('menu')
@@ -26,48 +30,48 @@
                 <span>HSE</span>
             </a>
             <ul class="ml-menu">
-                <li  class="active">
-                    <a href="{{url('BilanAccidentT')}}">
+                <li class="active">
+                    <a href="{{url('/BilanAccidentT')}}">
                         <span>Bilan des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/BAM/index.html">
-                        <span>Bilan A.M</span>
+                    <a href="{{url('/BilanAccidentM')}}">
+                        <span>Bilan des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MT/index.html" >
+                    <a href="{{url('/MedcineDeTravail')}}" >
                         <span>Médecine de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/CHS/index.html">
+                    <a href="{{url('/CommissionHygieneSecurite')}}">
                         <span>Commission d'unité Hygiène et Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/PHS/index.html">
+                    <a href="{{url('/PlanHygieneSecurite')}}">
                         <span>Plan d'Hygiène et de Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAT/index.html">
-                        <span>D.A.T</span>
+                    <a href="{{url('/DeclarationAccidentT')}}">
+                        <span>Déclarations des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAM/index.html">
-                        <span>D.A.M</span>
+                    <a href="{{url('/DeclarationAccidentM')}}">
+                        <span>Déclarations des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/IHSE/index.html">
+                    <a href="{{url('/InductionHSE')}}">
                         <span>Induction HSE</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MLCI/index.html">
+                    <a href="{{url('/MLCI')}}">
                         <span>MLCI</span>
                     </a>
                 </li>
@@ -87,19 +91,19 @@
             </ul>
         </li>
         <li>
-            <a href="biblio.html">
+            <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
             </a>
         </li>
         <li>
-            <a href="cartes.html">
+            <a href="{{url('/Cartes')}}">
                 <i class="material-icons col-light-blue">donut_large</i>
                 <span>Cartes</span>
             </a>
         </li>
         <li>
-            <a href="SMHSE/index.html">
+            <a href="{{url('/S_M_HSE')}}">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
@@ -112,29 +116,31 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                
-                <div class="row clearfix demo-button-sizes">
-                    <div class="col-md-2">
-                        <button type="button" class="btn bg-teal btn-block btn-lg waves-effect">Exporter en pdf </button>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
+                        <a href="{{url('/exportBilanMensuel/'.$bilan->id)}}" type="button" target="_blank" class="btn bg-teal btn-block btn-lg waves-effect">
+                            Exporter en pdf
+                        </a>
                     </div>
                 </div>
-
-            </div>
-            <div class="block-header">
-                <h2>
-                    BILAN DES ACCIDENTS DE TRAVAIL DU MOIs DE " "
-                </h2>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
+                        <div class="header">
+                            <h2>
+                               
+                                BILAN DES ACCIDENTS DE TRAVAIL DU MOIS DE " {{$bilan->mois}} {{$bilan->annee}} " 
+                            </h2>
+                        </div>
                         <div class="body">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p>Nombre des accidents de travail : </p>
+                                    <p>Nombre des accidents de travail : {{$bilan->nbr_accidents}}</p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <p>Nombre des journées perdues :</p>
+                                    <p>Nombre des journées perdues : {{$bilan->nbr_jours}}</p>
                                 </div>
                             </div>
                         </div>
@@ -154,49 +160,34 @@
                             <table id="" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Jours</th>
-                                        <th>Dim</th>
-                                        <th>Lun</th>
-                                        <th>Mar</th>
-                                        <th>Merc</th>
-                                        <th>Jeu</th>
-                                        <th>Vend</th>
-                                        <th>Sam</th>
+                                        <th class="text-center"><strong>Jours</strong></th>
+                                        @foreach ($bilan->accidentsParJour as $accidentsParJour)
+                                            <th class="text-center"> {{$accidentsParJour->jour}}</th>
+                                        @endforeach
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Nbr d'accident sans arrêt</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
+                                        <td class="text-center"><strong>Nbr d'accident sans arrêt</strong></td>
+                                    @foreach ($bilan->accidentsParJour as $accidentsParJour)
+                                        <td class="text-center">{{$accidentsParJour->avec_arret}}</td>
+                                    @endforeach
                                     </tr>
                                     <tr>
-                                        <td>Nbr journées perdues</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
+                                        <td class="text-center"><strong>Nbr d'accident avec arrêt</strong></td>
+                                    @foreach ($bilan->accidentsParJour as $accidentsParJour)
+                                        <td class="text-center">{{$accidentsParJour->sans_arret}}</td>
+                                    @endforeach
                                     </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                        <td >0</td>
-                                    </tr>
-                                    
                                 </tbody>
+                                <tfoot>
+                                    <tr>    
+                                        <th class="text-center"><strong>Total</strong></th>
+                                        @foreach ($totalParJour as $total)
+                                            <th class="text-center">{{$total}}</th>
+                                        @endforeach
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -215,54 +206,32 @@
                             <table id="" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Tranches d'horaires</th>
-                                        <th>Nbr d'accidents</th>
-                                        <th>Pourcentage</th>
+                                        <th class="text-center">Tranches d'horaires</th>
+                                        <th class="text-center">Nbr d'accidents</th>
+                                        <th class="text-center">Pourcentage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bilan->accidentParHeure as $accidentParHeure)
                                     <tr>
-                                        <td>6h à 8h</td>
-                                        <td >0</td>
-                                        <td> %</td>
+                                        <td class="text-center"><strong> {{$accidentParHeure->heure}}</strong></td>
+                                        <td class="text-center">{{$accidentParHeure->nbr_accidents}}</td>
+                                        <td class="text-center">
+                                            @php
+                                                $pourcentage = $accidentParHeure->nbr_accidents * 100 / $bilan->accidentParHeure->sum('nbr_accidents')
+                                            @endphp
+                                            {{$pourcentage}} %
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>8h à 10h</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10h à 12h</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12h à 13h</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>13h à 15h</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15h à 17h</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Autre</td>
-                                        <td >0</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td >125</td>
-                                        <td > %</td>
-                                    </tr>
-                                    
+                                    @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>    
+                                        <th class="text-center"><strong>Total</strong></th>
+                                        <th class="text-center">{{$bilan->accidentParHeure->sum('nbr_accidents')}}</th>
+                                        <th class="text-center">100 %</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -281,69 +250,32 @@
                             <table id="" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Siège des lésions</th>
-                                        <th>Nbr d'accidents</th>
-                                        <th>Pourcentage</th>
+                                        <th class="text-center">Siège des lésions</th>
+                                        <th class="text-center">Nbr d'accidents</th>
+                                        <th class="text-center">Pourcentage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bilan->accidentParSiege as $accidentParSiege)
                                     <tr>
-                                        <td>Yeux</td>
-                                        <td >0</td>
-                                        <td> %</td>
+                                        <td class="text-center"><strong> {{$accidentParSiege->siege_lesions}}</strong></td>
+                                        <td class="text-center">{{$accidentParSiege->nbr_accidents}}</td>
+                                        <td class="text-center">
+                                            @php
+                                                $pourcentage = $accidentParSiege->nbr_accidents * 100 / $bilan->accidentParSiege->sum('nbr_accidents')
+                                            @endphp
+                                            {{$pourcentage}} %
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Figure</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tête</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bassin</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Membres inférieurs</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Membres supérieurs</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pieds</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mains</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Doigts</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thorax/ Lombaire</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td >158</td>
-                                        <td > %</td>
-                                    </tr>
-                                    
+                                    @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>    
+                                        <th class="text-center"><strong>Total</strong></th>
+                                        <th class="text-center">{{$bilan->accidentParSiege->sum('nbr_accidents')}}</th>
+                                        <th class="text-center">100 %</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -362,49 +294,32 @@
                             <table id="" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Ancienneté</th>
-                                        <th>Nbr d'accidents</th>
-                                        <th>Pourcentage</th>
+                                        <th class="text-center">Ancienneté</th>
+                                        <th class="text-center">Nbr d'accidents</th>
+                                        <th class="text-center">Pourcentage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bilan->accidentParAnciennete as $accidentParAnciennete)
                                     <tr>
-                                        <td>1 sem à 1 mois</td>
-                                        <td >0</td>
-                                        <td> %</td>
+                                        <td class="text-center"><strong> {{$accidentParAnciennete->anciennete}}</strong></td>
+                                        <td class="text-center">{{$accidentParAnciennete->nbr_accidents}}</td>
+                                        <td class="text-center">
+                                            @php
+                                                $pourcentage = $accidentParAnciennete->nbr_accidents * 100 / $bilan->accidentParAnciennete->sum('nbr_accidents')
+                                            @endphp
+                                            {{$pourcentage}} %
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>1 mois à 3 mois</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3 mois à 6 mois</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6 mois à 1 an</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1 an à 5 ans</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5 ans et plus</td>
-                                        <td >0</td>
-                                        <td> %</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td >425</td>
-                                        <td > %</td>
-                                    </tr>
-                                    
+                                    @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>    
+                                        <th class="text-center"><strong>Total</strong></th>
+                                        <th class="text-center">{{$bilan->accidentParAnciennete->sum('nbr_accidents')}}</th>
+                                        <th class="text-center">100 %</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -423,28 +338,30 @@
                             <table id="" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Fonctions</th>
-                                        <th>Nbr d'accidents</th>
-                                        <th>Pourcentage</th>
+                                        <th class="text-center">Fonctions</th>
+                                        <th class="text-center">Nbr d'accidents</th>
+                                        <th class="text-center">Pourcentage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   <tr>
-                                        <td>Fonction 1</td>
-                                        <td>0</td>
-                                        <td> %</td>
-                                   </tr> 
-                                   <tr>
-                                        <td>Apprentis et stagiaires</td>
-                                        <td>0</td>
-                                        <td> %</td>
-                                   </tr>
+                                    @foreach ($bilan->accidentParFct as $accidentParFct)
+                                    <tr>
+                                        <td class="text-center"><strong> {{$accidentParFct->fonction}}</strong></td>
+                                        <td class="text-center">{{$accidentParFct->nbr_accidents}}</td>
+                                        <td class="text-center">
+                                            @php
+                                                $pourcentage = $accidentParFct->nbr_accidents * 100 / $bilan->accidentParFct->sum('nbr_accidents')
+                                            @endphp
+                                            {{$pourcentage}} %
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td >00</td>
-                                        <td > %</td>
+                                    <tr>    
+                                        <th class="text-center"><strong>Total</strong></th>
+                                        <th class="text-center">{{$bilan->accidentParFct->sum('nbr_accidents')}}</th>
+                                        <th class="text-center">100 %</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -455,4 +372,8 @@
 
         </div>
     </section>
+@endsection
+
+@section('scripts')
+
 @endsection

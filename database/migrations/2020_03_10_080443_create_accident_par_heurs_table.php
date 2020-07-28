@@ -15,9 +15,9 @@ class CreateAccidentParHeursTable extends Migration
     {
         Schema::create('accident_par_heurs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('heure');
-            $table->integer('nbr_accidents');
-            $table->integer('bilan_id');
+            $table->string('heure')->nullable();
+            $table->integer('nbr_accidents')->nullable();
+            $table->integer('bilan_id')->nullable();
             $table->timestamps();
         });
     }

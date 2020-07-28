@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,16 +15,26 @@ class UsersTableSeeder extends Seeder
     {
         $admin = new User();
 	    $admin->name = 'Admin';
-	    $admin->email = 'admin@admin.com';
-	    $admin->password = Hash::make('admin');
+	    $admin->email = 'admin@gmail.com';
+	    $admin->unite = 0;
+	    $admin->password = Hash::make('password');
 	    $admin->is_admin = 1;
 	    $admin->save();
 
-	    $user = new User();
-	    $user->name = 'User';
-	    $user->email = 'user@user.com';
-	    $user->password = Hash::make('user');
-	    $user->is_admin = 0;
-	    $user->save();
+	    $userHennaya = new User();
+	    $userHennaya->name = 'UserHennaya';
+	    $userHennaya->email = 'userHennaya@gmail.com';
+	    $userHennaya->unite = 2;
+	    $userHennaya->password = Hash::make('password');
+	    $userHennaya->is_admin = 0;
+		$userHennaya->save();
+		
+		$userTerga = new User();
+	    $userTerga->name = 'UserTerga';
+	    $userTerga->email = 'userTerga@gmail.com';
+	    $userTerga->unite = 1;
+	    $userTerga->password = Hash::make('password');
+	    $userTerga->is_admin = 0;
+	    $userTerga->save();
     }
 }

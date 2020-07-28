@@ -1,7 +1,10 @@
-@extends('layouts.dash')
+@extends('layouts.datatable')
 
 @section('titre')
 <title>Bilan des accidents de travail | APMC Divindus</title>
+@endsection
+
+@section('links')
 @endsection
 
 @section('menu')
@@ -26,48 +29,48 @@
                 <span>HSE</span>
             </a>
             <ul class="ml-menu">
-                <li  class="active">
-                    <a href="{{url('BilanAccidentT')}}">
+                <li class="active">
+                    <a href="{{url('/BilanAccidentT')}}">
                         <span>Bilan des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/BAM/index.html">
-                        <span>Bilan A.M</span>
+                    <a href="{{url('/BilanAccidentM')}}">
+                        <span>Bilan des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MT/index.html" >
+                    <a href="{{url('/MedcineDeTravail')}}" >
                         <span>Médecine de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/CHS/index.html">
+                    <a href="{{url('/CommissionHygieneSecurite')}}">
                         <span>Commission d'unité Hygiène et Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/PHS/index.html">
+                    <a href="{{url('/PlanHygieneSecurite')}}">
                         <span>Plan d'Hygiène et de Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAT/index.html">
-                        <span>D.A.T</span>
+                    <a href="{{url('/DeclarationAccidentT')}}">
+                        <span>Déclarations des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAM/index.html">
-                        <span>D.A.M</span>
+                    <a href="{{url('/DeclarationAccidentM')}}">
+                        <span>Déclarations des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/IHSE/index.html">
+                    <a href="{{url('/InductionHSE')}}">
                         <span>Induction HSE</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MLCI/index.html">
+                    <a href="{{url('/MLCI')}}">
                         <span>MLCI</span>
                     </a>
                 </li>
@@ -87,19 +90,19 @@
             </ul>
         </li>
         <li>
-            <a href="biblio.html">
+            <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
             </a>
         </li>
         <li>
-            <a href="cartes.html">
+            <a href="{{url('/Cartes')}}">
                 <i class="material-icons col-light-blue">donut_large</i>
                 <span>Cartes</span>
             </a>
         </li>
         <li>
-            <a href="SMHSE/index.html">
+            <a href="{{url('/S_M_HSE')}}">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
@@ -115,12 +118,34 @@
                 <div class="col-md-6 col-lg-6">
                 </div>
                 <div class="col-md-3 col-lg-3">
-                    <a type="button" href="{{url('/BilanAccidentT/create')}}" class="btn bg-teal btn-block btn-lg waves-effect">Nouveau bilan</a>
+                    @if (! Auth::user()->is_admin)
+                        <a type="button" href="{{url('/BilanAccidentT/create')}}" class="btn bg-teal btn-block btn-lg waves-effect">Nouveau bilan</a>
+                    @endif
                 </div>
+                @if ( Auth::user()->is_admin)
                 <div class="col-md-3 col-lg-3">
-                    <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#import">Exporter le bilan annuel</button>
+                    <a href="#" type="button" target="_blank" class="btn bg-teal btn-block btn-lg waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Exporter le bilan annuel <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @if ($bilanTerga && $bilanHennaya)
+                        <li><a href="{{url('/exportConsolideAnnuel/'.$annee)}}" target="_blank" class=" waves-effect waves-block">bilan consolidé</a></li>
+                        @endif
+                        @if ($bilanTerga)
+                        <li><a href="{{url('/exportBilanAnnuel/'.$bilanTerga->id)}}" target="_blank" class=" waves-effect waves-block">Bilan unité Terga</a></li>
+                        @endif
+                        @if ($bilanHennaya)
+                        <li><a href="{{url('/exportBilanAnnuel/'.$bilanHennaya->id)}}" target="_blank" class=" waves-effect waves-block">Bilan unité Hennaya</a></li>
+                        @endif
+                    </ul>
                 </div>
+                @else
+                <div class="col-md-3 col-lg-3">
+                    <a href="{{url('/exportBilanAnnuel/'.$bilanAnnuel->id)}}" type="button" target=”_blank” class="btn bg-teal btn-block btn-lg waves-effect">Exporter le bilan annuel</a>
+                </div>
+                @endif
             </div>
+            
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -131,33 +156,37 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
                                             <th>Intitulé</th>
+                                            <th>Mois</th>
                                             <th>Année</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($bilans as $bilan)
                                         <tr>
-                                            <td>Bilan des accidents de travail 2019</td>
-                                            <td >2019</td>
+                                            <td>Bilan des accidents de travail {{$bilan->annee}}</td>
+                                            <td >{{$bilan->mois}}</td>
+                                            
+                                            <td >{{$bilan->annee}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/BilanAccidentT/BilanMois')}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    @if (Auth::user()->is_admin)
+                                                    <a href="{{url('/BilanAccidentT/BilanMoisA/'.$bilan->mois.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">details</i>
-                                                    </a>
-                                                    <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">delete_forever</i>
-                                                    </a>
+                                                    </a> 
+                                                    @else
+                                                    <a href="{{url('/BilanAccidentT/BilanMois/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">details</i>
+                                                    </a> 
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
+                                        @endforeach
                                         
                                     </tbody>
                                 </table>
@@ -187,19 +216,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Bilan des accidents de travail 2019</td>
-                                            <td>T1</td>
-                                            <td >2019</td>
-                                            <td >
-                                                <div class="icon-button-demo">
-                                                    <a href="{{url('/BilanAccidentT/BilanTrimestre')}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        
+                                            @foreach ($bilansTrimestriel as $bilan)
+                                            <tr>
+                                                <td>Bilan des accidents de travail {{$bilan->annee}}</td>
+                                                <td >{{$bilan->trimestre}}</td>
+                                                <td >{{$bilan->annee}}</td>
+                                                <td >
+                                                    <div class="icon-button-demo">
+                                                        @if (Auth::user()->is_admin)
+                                                        <a href="{{url('/BilanAccidentT/BilanTrimestreA/'.$bilan->trimestre.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">details</i>
+                                                        </a> 
+                                                        @else
+                                                        <a href="{{url('/BilanAccidentT/BilanTrimestre/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">details</i>
+                                                        </a> 
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -228,18 +264,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Bilan des accidents de travail 2019</td>
-                                            <td >S1</td>
-                                            <td >2019</td>
-                                            <td >
-                                                <div class="icon-button-demo">
-                                                    <a href="{{url('/BilanAccidentT/BilanSemestre')}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @foreach ($bilansSemestriel as $bilan)
+                                            <tr>
+                                                <td>Bilan des accidents de travail {{$bilan->annee}}</td>
+                                                <td >{{$bilan->semestre}}</td>
+                                                <td >{{$bilan->annee}}</td>
+                                                <td >
+                                                    <div class="icon-button-demo">
+                                                        @if (Auth::user()->is_admin)
+                                                        <a href="{{url('/BilanAccidentT/BilanSemestreA/'.$bilan->semestre.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">details</i>
+                                                        </a> 
+                                                        @else
+                                                        <a href="{{url('/BilanAccidentT/BilanSemestre/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">details</i>
+                                                        </a> 
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                         
                                     </tbody>
                                 </table>
@@ -252,3 +296,7 @@
     </section>
 @endsection
 
+@section('scripts')
+
+   
+@endsection

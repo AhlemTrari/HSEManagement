@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
+
+    <!-- JQuery DataTable Css -->
+    <link href="{{asset('assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+
     <!-- Bootstrap Core Css -->
     <link href="{{asset('assets/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
 
@@ -23,13 +27,16 @@
     <link href="{{asset('assets/plugins/animate-css/animate.css')}}" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="{{asset('assets/plugins/morrisjs/morris.css')}}" rel="stylesheet" />
+    <!-- <link href="{{asset('assets/plugins/morrisjs/morris.css')}}" rel="stylesheet" /> -->
 
     <!-- Custom Css -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{asset('assets/css/themes/all-themes.css')}}" rel="stylesheet" />
+
+     @yield('links')
+
 </head>
 
 <body class="theme-red">
@@ -68,7 +75,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <!-- <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a> -->
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="index.html">&emsp; &emsp; APMC - Divindus</a>
             </div>
@@ -185,20 +192,22 @@
                             </li>
                         </ul>
                     </li> -->
-                    <!-- #END# Notifications -->
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                    <!-- #END# Notifications --><!-- 
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li> -->
                 </ul>
             </div>
         </div>
     </nav>
     <!-- #Top Bar -->
     <section>
+
+        
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="../images/user.png" width="48" height="48" alt="User" />
+                    <img src="{{asset('assets/images/user.png')}}" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>
@@ -371,9 +380,27 @@
         </aside>
         <!-- #END# Right Sidebar -->
     </section>
-
+    @include('flash-message')
     @yield('content')
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
+    <script>
+        
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+            var nbrRows = document.getElementById("parFctTable").rows.length -1;
+            var fct = $("#fct").val();
+            var nbr = $("#nbr").val();
+            if (fct && nbr) {
+                var markup = "<tr><td >" + fct + "<input type='hidden' name='"+nbrRows+"fct' value='" + fct + "'></td><td>" + nbr + "<input type='hidden' name='"+nbrRows+"accFct' value='" + nbr + "'></td><td><input type='hidden' name='loop' value='" +nbrRows+ "'></td></tr>";
+                $("#parFct").append(markup); 
+            }
+            
+        });
+    });
+    </script>
+
+    
     <!-- Jquery Core Js -->
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 
@@ -389,30 +416,23 @@
     <!-- Waves Effect Plugin Js -->
     <script src="{{asset('assets/plugins/node-waves/waves.js')}}"></script>
 
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="{{asset('assets/plugins/jquery-countto/jquery.countTo.js')}}"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="{{asset('assets/plugins/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/morrisjs/morris.js')}}"></script>
-
-    <!-- ChartJs -->
-    <script src="{{asset('assets/plugins/chartjs/Chart.bundle.js')}}"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    <script src="{{asset('assets/plugins/flot-charts/jquery.flot.js')}}"></script>
-    <script src="{{asset('assets/plugins/flot-charts/jquery.flot.resize.js')}}"></script>
-    <script src="{{asset('assets/plugins/flot-charts/jquery.flot.pie.js')}}"></script>
-    <script src="{{asset('assets/plugins/flot-charts/jquery.flot.categories.js')}}"></script>
-    <script src="{{asset('assets/plugins/flot-charts/jquery.flot.time.js')}}"></script>
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="{{asset('assets/plugins/jquery-sparkline/jquery.sparkline.js')}}"></script>
-
     <!-- Custom Js -->
     <script src="{{asset('assets/js/admin.js')}}"></script>
     <script src="{{asset('assets/js/pages/index.js')}}"></script>
 
+    @yield('scripts')
+     <!-- Jquery DataTable Plugin Js -->
+     <script src="{{asset('assets/plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/jszip.min.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
+     <script src="{{asset('assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
+ 
+     <script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
     <!-- Demo Js -->
     <script src="{{asset('assets/js/demo.js')}}"></script>
 </body>

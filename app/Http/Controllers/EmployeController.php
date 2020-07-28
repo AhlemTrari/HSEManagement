@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Employe;
+use App\Fonction;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
+use App\Exports\EmployeExport;
 use App\Imports\EmployeImport;
+use App\Exports\EmployesExport;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -20,8 +24,14 @@ class EmployeController extends Controller
 
     public function index()
     {
-        $employes = Employe::all();
+        $fcts = Fonction::all();
+        if (Auth::user()->is_admin) {
+            $employes = Employe::all();
+        }else{
+            $employes = Employe::where('unite',Auth::user()->unite)->get();
+        }
          return view('employe.index')->with([
+            'fonctions' => $fcts,
             'employes' => $employes,
         ]);
     }
@@ -70,32 +80,16 @@ class EmployeController extends Controller
 
     public function import(Request $request)
      {
-        // if($request->hasFile('file')){
-        // Excel::import(new EmployeImport, request()->file('file'),\Maatwebsite\Excel\Excel::XLSX);
-
         if($request->hasFile('file')){
-            $path =$request->file('file')->getRealPath();
-            
-            //$request->file('file')->getRealPath();
-            $data = Excel::import($path, function($reader){})->get();
-            
-            if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    $employe = new Employe();
-                    $employe->matricule = $value->matricule;
-                    $employe->nom = $value->nom;
-                    $employe->prenom = $value->prenom;
-                    $employe->fonction = $value->fonction;
-                    $employe->unite = $value->unite;
-                    $employe->date_naissance = $value->date_naissance;
-                    $employe->date_rec = $value->date_rec;
-                    $employe->tel = $value->tel;
-                    $employe->adresse = $value->adresse;
-                                
-                    $employe->save();
-                }
-            }
+            Excel::import(new EmployeImport,request()->file('file'));
         }
+
         return back();
      }
+
+      public function export() 
+    {
+        return Excel::download(new EmployesExport, 'employes.xlsx');
+    }
+   
 }

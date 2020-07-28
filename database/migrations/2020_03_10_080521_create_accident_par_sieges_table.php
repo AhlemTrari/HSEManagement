@@ -15,9 +15,9 @@ class CreateAccidentParSiegesTable extends Migration
     {
         Schema::create('accident_par_sieges', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('siege_lesions');
-            $table->integer('nbr_accidents');
-            $table->integer('bilan_id');
+            $table->string('siege_lesions')->nullable();
+            $table->integer('nbr_accidents')->nullable();
+            $table->integer('bilan_id')->nullable();
             $table->timestamps();
         });
     }

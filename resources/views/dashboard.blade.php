@@ -27,47 +27,47 @@
             </a>
             <ul class="ml-menu">
                 <li>
-                    <a href="{{url('BilanAccidentT')}}">
+                    <a href="{{url('/BilanAccidentT')}}">
                         <span>Bilan des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/BAM/index.html">
-                        <span>Bilan A.M</span>
+                    <a href="{{url('/BilanAccidentM')}}">
+                        <span>Bilan des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MT/index.html" >
+                    <a href="{{url('/MedcineDeTravail')}}" >
                         <span>Médecine de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/CHS/index.html">
+                    <a href="{{url('/CommissionHygieneSecurite')}}">
                         <span>Commission d'unité Hygiène et Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/PHS/index.html">
+                    <a href="{{url('/PlanHygieneSecurite')}}">
                         <span>Plan d'Hygiène et de Sécurité</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAT/index.html">
-                        <span>D.A.T</span>
+                    <a href="{{url('/DeclarationAccidentT')}}">
+                        <span>Déclarations des accidents de travail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/DAM/index.html">
-                        <span>D.A.M</span>
+                    <a href="{{url('/DeclarationAccidentM')}}">
+                        <span>Déclarations des accidents de matériels</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/IHSE/index.html">
+                    <a href="{{url('/InductionHSE')}}">
                         <span>Induction HSE</span>
                     </a>
                 </li>
                 <li>
-                    <a href="HSE/MLCI/index.html">
+                    <a href="{{url('/MLCI')}}">
                         <span>MLCI</span>
                     </a>
                 </li>
@@ -87,19 +87,19 @@
             </ul>
         </li>
         <li>
-            <a href="biblio.html">
+            <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
             </a>
         </li>
         <li>
-            <a href="cartes.html">
+            <a href="{{url('/Cartes')}}">
                 <i class="material-icons col-light-blue">donut_large</i>
                 <span>Cartes</span>
             </a>
         </li>
         <li>
-            <a href="SMHSE/index.html">
+            <a href="{{url('/S_M_HSE')}}">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
