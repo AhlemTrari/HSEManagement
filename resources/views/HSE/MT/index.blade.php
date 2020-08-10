@@ -99,10 +99,22 @@
             </a>
         </li>
         <li>
-            <a href="{{url('/S_M_HSE')}}">
+            <a href="javascript:void(0);" class="menu-toggle">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
+            <ul class="ml-menu">
+                <li>
+                    <a  href="{{url('/S_M_HSE')}}">
+                        <span>En cour d'utilisation</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="{{url('/S_M_HSE/archives')}}">
+                        <span>Archives</span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
@@ -117,7 +129,7 @@
                     <div class="col-md-8"></div>
                     <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
                         @if (! Auth::user()->is_admin)
-                            <a type="button" href="{{url('/DeclarationAccidentM/create')}}" class="btn bg-teal btn-block btn-lg waves-effect">Nouveau canevas</a>
+                            <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#canevas">Nouveau canevas</button>
                         @endif
                     </div>
                 </div>
@@ -150,8 +162,8 @@
                                         @foreach ($canevas as $caneva)
                                         <tr>
                                             <td>{{$caneva->num}}</td>
+                                            <td >{{$caneva->employe->nom}}</td>
                                             <td >{{$caneva->date}}</td>
-                                            <td >{{$caneva->employe->nom}} {{$caneva->employe->prenom}}</td>
                                             @if (Auth::user()->is_admin)
                                                 @if ($caneva->unite == 1)
                                                     <td>Unité Terga</td>
@@ -185,5 +197,74 @@
 
         </div>
     </section>
-
+    <div class="modal fade" id="canevas" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form action="{{url('/MedcineDeTravail')}}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="largeModalLabel">Canevas de medecine da travail</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-line">
+                                    <select name="employe_id" class="form-control show-tick" required>
+                                        <option value="">-- Selectionnez un employé --</option>
+                                        @foreach ($employes as $employe)
+                                        <option value="{{$employe->id}}">{{$employe->matricule}} - {{$employe->nom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row clearfix" style="margin-top: 30px">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="affectation" class="form-control" placeholder="Affectation">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label style="margin-top: 10px">Date de visite</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-line">
+                                            <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="visite_periodique" class="form-control" placeholder="Visite périodique">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="radiographie" class="form-control" placeholder="Radiographie">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="examen_bio" class="form-control" placeholder="Examen Biologique">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <textarea rows="1" name="observation" class="form-control no-resize auto-growth" placeholder="Observation..." style="overflow: hidden; overflow-wrap: break-word; height: 46px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-link waves-effect">Valider</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
  @endsection

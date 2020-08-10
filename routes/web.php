@@ -70,15 +70,19 @@ Route::get('/MedcineDeTravail/show/{id}','MtController@show');
 
 //CHS
 Route::get('/CommissionHygieneSecurite','ChsController@index');
+Route::post('/CommissionHygieneSecurite','ChsController@store');
 
 //PHS
 Route::get('/PlanHygieneSecurite','PhsController@index');
+Route::post('/PlanHygieneSecurite','PhsController@store');
 
 //IHSE
 Route::get('/InductionHSE','IhseController@index');
+Route::post('/InductionHSE','IhseController@store');
 
 //MLCI
 Route::get('/MLCI','MlciController@index');
+Route::post('/MLCI','MlciController@store');
 
 //Biblio
 Route::get('/Bibliotheque','BiblioController@index');
@@ -88,3 +92,7 @@ Route::get('/Cartes','CarteController@index');
 
 //S.M.HSE
 Route::get('/S_M_HSE','SmhseController@index');
+Route::get('/S_M_HSE/archives','SmhseController@indexArchives');
+Route::post('/S_M_HSE','SmhseController@store');
+Route::post('/S_M_HSE/archiver/{id}','SmhseController@archiver');
+Route::delete('/S_M_HSE/{id}','SmhseController@destroy');

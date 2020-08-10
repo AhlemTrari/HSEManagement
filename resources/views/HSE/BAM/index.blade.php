@@ -98,10 +98,22 @@
             </a>
         </li>
         <li>
-            <a href="{{url('/S_M_HSE')}}">
+            <a href="javascript:void(0);" class="menu-toggle">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
+            <ul class="ml-menu">
+                <li>
+                    <a  href="{{url('/S_M_HSE')}}">
+                        <span>En cour d'utilisation</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="{{url('/S_M_HSE/archives')}}">
+                        <span>Archives</span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
@@ -111,12 +123,47 @@
     <section class="content">
         <div class="container-fluid">
            
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
+            
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Bilan des accidents de materiel par année :
+                        </h2>
+                        
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Intitulé</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($canevas as $caneva)
+                                    <tr>
+                                        <td>Bilan des accidents de materiel année {{$caneva->year}}</td>
+                                        <td >
+                                            <div class="icon-button-demo">
+                                                <a href="" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <i class="material-icons">details</i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        
+                                    @endforeach
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
     </section>

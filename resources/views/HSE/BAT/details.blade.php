@@ -102,10 +102,22 @@
             </a>
         </li>
         <li>
-            <a href="{{url('/S_M_HSE')}}">
+            <a href="javascript:void(0);" class="menu-toggle">
                 <i class="material-icons col-red">donut_large</i>
                 <span>S.M.HSE</span>
             </a>
+            <ul class="ml-menu">
+                <li>
+                    <a  href="{{url('/S_M_HSE')}}">
+                        <span>En cour d'utilisation</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="{{url('/S_M_HSE/archives')}}">
+                        <span>Archives</span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

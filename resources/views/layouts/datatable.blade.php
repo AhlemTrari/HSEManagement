@@ -25,8 +25,11 @@
 
     <!-- JQuery DataTable Css -->
     <link href="{{asset('assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <!-- Bootstrap DatePicker Css -->
+    <link href="{{asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet" />
 
-    <!-- Morris Chart Css-->
+    <!-- Bootstrap Select Css -->
+    <link href="{{asset('assets/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
@@ -441,7 +444,9 @@
     <!-- Waves Effect Plugin Js -->
     <script src="{{asset('assets/plugins/node-waves/waves.js')}}"></script>
 
-    
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+
 
      <!-- Jquery DataTable Plugin Js -->
      <script src="{{asset('assets/plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
@@ -457,6 +462,7 @@
      <!-- Custom Js -->
     <script src="{{asset('assets/js/admin.js')}}"></script>
     <script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
+    <script src="{{asset('assets/js/pages/forms/advanced-form-elements.js')}}"></script>
 
     <!-- Demo Js -->
     <script src="{{asset('assets/js/demo.js')}}"></script>

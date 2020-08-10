@@ -26,7 +26,7 @@ class DamController extends Controller
     }
     public function create()
     {
-        $employes = Employe::all();
+        $employes = Employe::where('unite',Auth::user()->unite)->get();
          return view('HSE.DAM.create')->with([
              'employes' => $employes,
          ]);
@@ -42,12 +42,12 @@ class DamController extends Controller
 
         if ($last && $last->created_at->year == now()->year) {
             $n = $last->num;
-            $num = substr( $n,0,4);
+            $num = substr( $n,0,3);
             $num +=1;
-            $num = str_pad($num, 4, '0', STR_PAD_LEFT);
+            $num = str_pad($num, 3, '0', STR_PAD_LEFT);
 
         }else{
-            $num = "0001";
+            $num = "001";
         }
         
         $declaration->num = $num."/".$year;

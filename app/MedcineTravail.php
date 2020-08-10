@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedcineTravail extends Model
 {
-    public function victime()
+    public function employe()
 	{
 	    return $this->belongsTo('App\Employe','employe_id');
     }

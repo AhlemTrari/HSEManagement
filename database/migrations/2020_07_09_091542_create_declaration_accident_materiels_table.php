@@ -36,6 +36,8 @@ class CreateDeclarationAccidentMaterielsTable extends Migration
             $table->string('circonstances_detaillees')->nullable();
             $table->integer('tiers_id')->nullable();
             $table->integer('employe_id')->nullable();
+            $table->integer('trimestre')->nullable();
+            $table->integer('semestre')->nullable();
             $table->timestamps();
         });
     }
