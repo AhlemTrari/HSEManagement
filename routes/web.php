@@ -86,9 +86,17 @@ Route::post('/MLCI','MlciController@store');
 
 //Biblio
 Route::get('/Bibliotheque','BiblioController@index');
+Route::get('/Bibliotheque/details/{id}','BiblioController@detail');
+Route::post('/Bibliotheque','BiblioController@store');
+Route::post('/Bibliotheque/emplacement','BiblioController@storeEmplacement');
+Route::delete('/Bibliotheque/{id}','BiblioController@destroy');
 
 //Cartes
 Route::get('/Cartes','CarteController@index');
+Route::get('/Cartes/details/{id}','CarteController@detail');
+Route::post('/Cartes','CarteController@store');
+Route::post('/Cartes/emplacement','CarteController@storeEmplacement');
+Route::delete('/Cartes/{id}','CarteController@destroy');
 
 //S.M.HSE
 Route::get('/S_M_HSE','SmhseController@index');

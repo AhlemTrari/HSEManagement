@@ -105,7 +105,7 @@
             <ul class="ml-menu">
                 <li class="active">
                     <a  href="{{url('/S_M_HSE')}}">
-                        <span>En cour d'utilisation</span>
+                        <span>En cours d'utilisation</span>
                     </a>
                 </li>
                 <li>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
      @yield('titre')
     <!-- Favicon-->
@@ -402,33 +403,52 @@
     </script>
 
     
-    <!-- Jquery Core Js -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="../../plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addBiblioEmplacement').on('submit',function (e) {
+            e.preventDefault();
+            var intitule = $('#intitule').val();
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type:"POST",
+                url:"/Bibliotheque/emplacement",
+                data:{intitule: intitule,},
+                success: function (response) {
+                    console.log(response)
+                    $('#biblioEmplacement').modal('hide');
+                },
+                error: function (error) {
+                    console.log(error)
+                    alert("Data not saved");
+                }      
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addEmplacement').on('submit',function (e) {
+            e.preventDefault();
+            var intitule = $('#intitule').val();
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type:"POST",
+                url:"/Cartes/emplacement",
+                data:{intitule: intitule,},
+                success: function (response) {
+                    console.log(response)
+                    $('#nvEmplacement').modal('hide');
+                },
+                error: function (error) {
+                    console.log(error)
+                    alert("Data not saved");
+                }      
+            });
+        });
+    });
+</script>
     <!-- Jquery Core Js -->
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 
@@ -466,6 +486,7 @@
 
     <!-- Demo Js -->
     <script src="{{asset('assets/js/demo.js')}}"></script>
+
 </body>
 
 </html>
