@@ -57,6 +57,7 @@ class DamController extends Controller
         $declaration->chantier = $request->input('chantier');
         $declaration->lieu = $request->input('lieu');
         $declaration->date = $request->input('date');
+
         $declaration->heure = $request->input('heure');
         $declaration->travail_courrant = $request->input('travail_courrant');
         $declaration->materiel = $request->input('materiel');
@@ -75,6 +76,21 @@ class DamController extends Controller
         }
         $declaration->circonstances_detaillees = $request->input('circonstances_detaillees');
         $declaration->employe_id = $request->input('employe_id');
+
+        $date = strtotime($request->input('date'));
+        if (in_array(date('M',$date), array('Jan','Feb','Mar'))) {
+            $declaration->trimestre = 'T1';
+            $declaration->semestre = 'S1';
+        }elseif (in_array(date('M',$date), array('Apr','May','Jun'))) {
+            $declaration->trimestre = 'T2';
+            $declaration->semestre = 'S1';
+        }elseif (in_array(date('M',$date), array('Jul','Aug','Sep'))) {
+            $declaration->trimestre = 'T3';
+            $declaration->semestre = 'S2';
+        }else{
+            $declaration->trimestre = 'T4';
+            $declaration->semestre = 'S2';
+        }
 
         $declaration->save();
         return redirect('/DeclarationAccidentM');

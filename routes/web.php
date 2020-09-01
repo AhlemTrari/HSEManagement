@@ -19,9 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Employe
 Route::get('/employes','EmployeController@index');
 Route::post('/employes','EmployeController@store');
+Route::get('/employes/profil/{id}','EmployeController@show');
 Route::post('/employes/import','EmployeController@import');
+Route::get('/employes/export','EmployeController@export');
+Route::delete('/employes/{id}','EmployeController@destroy');
 
 //BAT
 Route::get('/BilanAccidentT','BatController@index');
@@ -50,6 +54,10 @@ Route::get('/exportDeclarationTravail/{id}','PdfController@exportDeclarationT');
 
 //BAM
 Route::get('/BilanAccidentM','BamController@index');
+Route::get('/BilanAccidentM/detail/{year}','BamController@detail');
+Route::get('/BilanAccidentM/mois/{mois}/{year}','BamController@parMois');
+Route::get('/BilanAccidentM/trimestre/{t}/{year}','BamController@parTrimestre');
+Route::get('/BilanAccidentM/semestre/{s}/{year}','BamController@parSemestre');
 
 //DAT
 Route::get('/DeclarationAccidentT','DatController@index');
@@ -66,7 +74,17 @@ Route::get('/DeclarationAccidentM/show/{id}','DamController@show');
 //MT
 Route::get('/MedcineDeTravail','MtController@index');
 Route::post('/MedcineDeTravail','MtController@store');
+Route::put('/MedcineDeTravail/{id}','MtController@update');
 Route::get('/MedcineDeTravail/show/{id}','MtController@show');
+Route::get('/MedcineDeTravail/detail/{year}','MtController@detail');
+Route::get('/MedcineDeTravail/mois/{mois}/{year}','MtController@parMois');
+Route::get('/MedcineDeTravail/trimestre/{t}/{year}','MtController@parTrimestre');
+Route::get('/MedcineDeTravail/semestre/{s}/{year}','MtController@parSemestre');
+Route::delete('/MedcineDeTravail/{id}','MtController@destroy');
+Route::get('/MedcineDeTravail/exportAnnuel/{year}','MtController@exportAnnuel');
+Route::get('/MedcineDeTravail/exportMensuel/{mois}/{year}','MtController@exportMensuel');
+Route::get('/MedcineDeTravail/exportTrimestriel/{t}/{year}','MtController@exportTrimestriel');
+Route::get('/MedcineDeTravail/exportSemestriel/{t}/{year}','MtController@exportSemestriel');
 
 //CHS
 Route::get('/CommissionHygieneSecurite','ChsController@index');
@@ -75,6 +93,7 @@ Route::post('/CommissionHygieneSecurite','ChsController@store');
 //PHS
 Route::get('/PlanHygieneSecurite','PhsController@index');
 Route::post('/PlanHygieneSecurite','PhsController@store');
+Route::delete('/PlanHygieneSecurite/{id}','PhsController@destroy');
 
 //IHSE
 Route::get('/InductionHSE','IhseController@index');

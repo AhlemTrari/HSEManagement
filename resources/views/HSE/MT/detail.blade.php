@@ -126,21 +126,69 @@
         <div class="container-fluid">
             <div class="block-header">
                 <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 clearfix demo-button-sizes">
                         @if (! Auth::user()->is_admin)
                             <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#canevas">Nouveau canevas</button>
                         @endif
                     </div>
+                    <div class="col-md-4 col-lg-4" style="float: right">
+                        <a href="#" type="button" target="_blank" class="btn bg-teal btn-block btn-lg waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Exporter le canevas annuel <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url('/MedcineDeTravail/exportAnnuel/'.$year)}}" target="_blank" class=" waves-effect waves-block">Excel</a></li>
+                            <li><a href="" target="_blank" class=" waves-effect waves-block">PDF</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            
+
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                    <div class="card">
+                        <div class="body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50%"></th>
+                                            <th>Nombre</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Visite d'embauche</th>
+                                            <td>{{ $visite_embauche }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Visite periodique</th>
+                                            <td>{{ $visite_periodique }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Radiographie</th>
+                                            <td>{{ $radiographie }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Examen biologique</th>
+                                            <td>{{ $examen_bio }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                               Canevas de médcine de travail par année:
+                               Canevas de médcine de travail par mois:
                             </h2>
                         </div>
                         <div class="body">
@@ -153,8 +201,9 @@
                                             @if (Auth::user()->is_admin)
                                                 <th>Unité</th>
                                             @endif
+                                            <th>Mois</th>
                                             <th>Année</th>
-                                            <th style="width: 10%">Action</th>
+                                            <th style="width: 18%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -168,10 +217,11 @@
                                                     <td>Unité Hennaya</td>
                                                 @endif
                                             @endif
+                                            <td >{{$caneva->mois}}</td>
                                             <td >{{$caneva->year}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/MedcineDeTravail/detail/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <a href="{{url('MedcineDeTravail/mois/'.$caneva->mois.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">details</i>
                                                     </a>
                                                 </div>
@@ -187,8 +237,118 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               Canevas de médcine de travail par trimestre:
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Intitulé</th>
+                                            @if (Auth::user()->is_admin)
+                                                <th>Unité</th>
+                                            @endif
+                                            <th>Trimestre</th>
+                                            <th>Année</th>
+                                            <th style="width: 18%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($canevasT as $caneva)
+                                        <tr>
+                                            <td>Canevas de médcine de travail {{$caneva->year}} {{$caneva->trimestre}}</td>
+                                            @if (Auth::user()->is_admin)
+                                                @if ($caneva->unite == 1)
+                                                    <td>Unité Terga</td>
+                                                @else
+                                                    <td>Unité Hennaya</td>
+                                                @endif
+                                            @endif
+                                            <td >{{$caneva->trimestre}}</td>
+                                            <td >{{$caneva->year}}</td>
+                                            <td >
+                                                <div class="icon-button-demo">
+                                                    <a href="{{url('MedcineDeTravail/trimestre/'.$caneva->trimestre.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">details</i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               Canevas de médcine de travail par semestre:
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Intitulé</th>
+                                            @if (Auth::user()->is_admin)
+                                                <th>Unité</th>
+                                            @endif
+                                            <th>Semestre</th>
+                                            <th>Année</th>
+                                            <th style="width: 18%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($canevasS as $caneva)
+                                        <tr>
+                                            <td>Canevas de médcine de travail {{$caneva->year}} {{$caneva->semestre}}</td>
+                                            @if (Auth::user()->is_admin)
+                                                @if ($caneva->unite == 1)
+                                                    <td>Unité Terga</td>
+                                                @else
+                                                    <td>Unité Hennaya</td>
+                                                @endif
+                                            @endif
+                                            <td >{{$caneva->semestre}}</td>
+                                            <td >{{$caneva->year}}</td>
+                                            <td >
+                                                <div class="icon-button-demo">
+                                                    <a href="{{url('MedcineDeTravail/semestre/'.$caneva->semestre.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">details</i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- @include('HSE.Mt.table',$canevasExport) --}}
         </div>
     </section>
+
     <div class="modal fade" id="canevas" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <form action="{{url('/MedcineDeTravail')}}" method="POST" enctype="multipart/form-data">
@@ -259,4 +419,5 @@
             </form>
         </div>
     </div>
+    
  @endsection

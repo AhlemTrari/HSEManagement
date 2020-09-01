@@ -15,6 +15,10 @@ class CreatePlanHygienesTable extends Migration
     {
         Schema::create('plan_hygienes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('intitule');
+            $table->string('projet');
+            $table->string('file');
+            $table->integer('unite');
             $table->timestamps();
         });
     }

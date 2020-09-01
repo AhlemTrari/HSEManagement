@@ -208,6 +208,15 @@
                         
                         <div class="body">                   
                             <div class="row clearfix">
+                                
+                                <div class="col-sm-offset-1 col-sm-10">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="libelle" required>
+                                            <label class="form-label">Libellé</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-offset-1 col-sm-5">
                                     <div class="form-group ">
                                         <div class="form-line">
@@ -241,8 +250,8 @@
                                 </div>
                                 <div class="col-sm-offset-1 col-sm-10">
                                     <div class="form-group">
-                                        <div class="form-line" id="bs_datepicker_container">
-                                            <input type="text" class="form-control" placeholder="Date" name="date" required>
+                                        <div class="form-line">
+                                            <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016" required>
                                         </div>
                                     </div>
                                 </div>

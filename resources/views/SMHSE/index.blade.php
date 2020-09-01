@@ -37,6 +37,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{url('/BilanMedcineTravail')}}">
+                        <span>Bilan de médecine de travail</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{url('/MedcineDeTravail')}}" >
                         <span>Médecine de travail</span>
                     </a>

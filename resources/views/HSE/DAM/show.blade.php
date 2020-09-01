@@ -131,7 +131,7 @@
             <div class="col-md-8 col-lg-8">
             </div>
             <div class="col-md-4 col-lg-4">
-                <a href="{{url('/exportDeclarationMateriel/'.$declaration->id)}}" type="button" target=”_blank” class="btn bg-teal btn-block btn-lg waves-effect">Exporter cette déclaration</a>
+                <a href="{{url('/exportDeclarationMateriel/'.$declaration->id)}}" type="button" target="_blank" class="btn bg-teal btn-block btn-lg waves-effect">Exporter cette déclaration</a>
             </div>
         </div>
         <div class="row">

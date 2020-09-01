@@ -118,54 +118,69 @@
     </ul>
 </div>
 @endsection
+
 @section('content')
 
     <section class="content">
         <div class="container-fluid">
-           
-            
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>
-                            Bilan des accidents de materiel par année :
-                        </h2>
-                        
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Intitulé</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($declarations as $declaration)
-                                    <tr>
-                                        <td>Bilan des accidents de materiel année {{$declaration->year}}</td>
-                                        <td >
-                                            <div class="icon-button-demo">
-                                                <a href="{{url('/BilanAccidentM/detail/'.$declaration->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">details</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                        
-                                    @endforeach
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               Canevas de médcine de travail 
+                               @if ($mois ?? '')
+                                   " mois {{$mois ?? ''}}
+                               @endif
+                               @if ($t ?? '')
+                                   trimestre {{$t ?? ''}}
+                               @endif
+                               @if ($s ?? '')
+                                   semestre {{$s ?? ''}}
+                               @endif
+                               année {{$year}} ":
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                   
+                                    <thead>
+                                        <tr>
+                                            <th>Référence</th>
+                                            @if (Auth::user()->is_admin)
+                                                <th>Unité</th>
+                                            @endif
+                                            <th>Libellé</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
                                     
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                        @foreach ($declarations as $declaration)
+                                        <tr>
+                                            <td><a href="{{url('/DeclarationAccidentM/show/'.$declaration->id)}}">{{$declaration->num}}</a></td>
+                                            @if (Auth::user()->is_admin)
+                                                @if ($declaration->unite == 1)
+                                                    <td>Unité Terga</td>
+                                                @else
+                                                    <td>Unité Hennaya</td>
+                                                @endif
+                                            @endif
+                                            <td>{{$declaration->libelle}}</td>
+                                            <td>{{$declaration->date}}</td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         </div>
     </section>
-    
-@endsection
+ @endsection

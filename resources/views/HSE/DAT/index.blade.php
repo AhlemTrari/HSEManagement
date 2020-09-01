@@ -156,7 +156,7 @@
                                             @if (Auth::user()->is_admin)
                                                 <th>Unité</th>
                                             @endif
-                                            <th>Action</th>
+                                            <th style="width: 20%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>

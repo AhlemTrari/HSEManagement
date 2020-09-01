@@ -17,12 +17,13 @@ class CreateMedcineTravailsTable extends Migration
             $table->bigIncrements('id');
             $table->string('num')->nullable();
             $table->integer('unite')->nullable(); // 1->targa; 2->hennaya
-            $table->string('date')->nullable();
             $table->string('visite_periodique')->nullable();
             $table->string('radiographie')->nullable();
             $table->string('examen_bio')->nullable();
             $table->string('observation')->nullable();
             $table->string('affectation')->nullable();
+            $table->string('trimestre')->nullable();
+            $table->string('semestre')->nullable();
             $table->integer('employe_id')->nullable();
             $table->timestamps();
         });

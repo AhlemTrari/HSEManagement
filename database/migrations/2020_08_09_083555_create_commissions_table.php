@@ -15,6 +15,7 @@ class CreateCommissionsTable extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('intitule');
             $table->timestamps();
         });
     }

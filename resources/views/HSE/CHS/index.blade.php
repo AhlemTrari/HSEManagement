@@ -196,7 +196,7 @@
 </section>
 <div class="modal fade" id="commission" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form action="{{url('/MedcineDeTravail')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/CommissionHygieneSecurite')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">

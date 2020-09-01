@@ -126,22 +126,23 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 
-                @if (!Auth::user()->is_admin)
-                <form action="{{url('employes/import')}}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div class="row" style="margin-bottom: 25px">
-
-                        <div class="col-md-6 col-lg-6">
+                <div class="row" style="margin-bottom: 25px">
+                    <div class="col-md-3 col-lg-3"></div>
+                        @if (!Auth::user()->is_admin)
+                        <form action="{{url('employes/import')}}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="col-md-3 col-lg-3">
+                                <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#import">Importer un fichier excel</button>
+                            </div>
+                            <div class="col-md-3 col-lg-3">
+                                <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nv_e">Ajouter un employé</button>
+                            </div>
+                        </form>
+                        @endif
+                        <div class="col-md-3 col-lg-3" style="float: right">
+                            <a href="{{url('/employes/export')}}" type="button" class="btn bg-teal btn-block btn-lg waves-effect">Exporter la liste des employés</a>
                         </div>
-                        <div class="col-md-3 col-lg-3">
-                            <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#import">Importer un fichier excel</button>
-                        </div>
-                        <div class="col-md-3 col-lg-3">
-                            <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nv_e">Ajouter un employé</button>
-                        </div>
-                    </div>
-                </form>
-                @endif
+                </div>
                 <div class="card">
                     <div class="body">
 
@@ -166,21 +167,47 @@
                                         <td>{{$employe->matricule}}</td>
                                         <td>{{$employe->nom}} {{$employe->prenom}}</td>
                                         @if (Auth::user()->is_admin)
-                                            <td>{{$employe->unite}}</td>
+                                            @if ($employe->unite == 1)
+                                                <td>Unité Terga</td>
+                                            @else
+                                                <td>Unité Hennaya</td>
+                                            @endif
                                         @endif
                                         <td>{{$employe->date_rec}}</td>
                                         <td>
                                             <div class="icon-button-demo">
-                                                <a href="show1.html" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="{{url('/employes/profil/'.$employe->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">details</i>
                                                 </a>
                                                 @if (!Auth::user()->is_admin)
                                                 <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                                <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $employe->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
+                                                <div class="modal fade" id="supp{{$employe->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $employe->id }}ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                Voulez-vous vraiment supprimer cette employé? 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form class="form-inline" action="{{ url('employes/'.$employe->id)}}"  method="POST">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Non</button>
+                                                                    <button type="submit" class="btn btn-danger">Oui</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 @endif
                                             </div>
                                         </td>
@@ -214,6 +241,117 @@
 </div>
 
 <div class="modal fade" id="nv_e" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form action="{{url('employes')}}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel">Nouvel employé</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row clearfix" style="margin-top: 30px">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="matricule" placeholder="Matricule">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="nom" placeholder="Nom et prénom">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Sexe</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="demo-radio-button">
+                                        <input name="sexe" type="radio" id="radio_1" value="Homme" checked="">
+                                        <label for="radio_1">Homme</label>
+                                        <input name="sexe" type="radio" id="radio_2" value="Femme">
+                                        <label for="radio_2">Femme</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-line">
+                                <select name="fonction" class="form-control show-tick" required>
+                                    <option value="">-- Selectionnez une fonction --</option>
+                                    @foreach ($fonctions as $fct)
+                                    <option value="{{$fct->intitule}}">{{$fct->intitule}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-top: 30px">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="statut" placeholder="Statut">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Date de naissance</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-line">
+                                        <input type="date" name="date_naissance" class="form-control date" placeholder="Ex: 30/07/2016">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Date de recrutement</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-line">
+                                        <input type="date" name="date_rec" class="form-control date" placeholder="Ex: 30/07/2016">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="affectation" placeholder="Affectation">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Poste à risque</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="demo-radio-button">
+                                        <input name="poste_risque" type="radio" id="radio_3" value="Oui" checked="">
+                                        <label for="radio_3">Oui</label>
+                                        <input name="poste_risque" type="radio" id="radio_4" value="Non">
+                                        <label for="radio_4">Non</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Visite d'Embauche</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="demo-radio-button">
+                                        <input name="visite_embauche" type="radio" id="radio_5" value="Oui" checked="">
+                                        <label for="radio_5">Oui</label>
+                                        <input name="visite_embauche" type="radio" id="radio_6" value="Non">
+                                        <label for="radio_6">Non</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link waves-effect">Valider</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{-- <div class="modal fade" id="nv_e" tabindex="-1" role="dialog">
     <div class="modal-dialog window-popup edit-my-poll-popup" role="document">
         <div class="modal-content">
             <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
@@ -277,7 +415,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 </section>
 
 @endsection

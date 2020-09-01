@@ -42,13 +42,15 @@ class EmployeController extends Controller
 
         $employe->matricule = $request->input('matricule');
         $employe->nom = $request->input('nom');
-        $employe->prenom = $request->input('prenom');
+        $employe->sexe = $request->input('sexe');
         $employe->fonction = $request->input('fonction');
-        $employe->unite = $request->input('unite');
-        $employe->tel = $request->input('tel');
-        $employe->adresse = $request->input('adresse');
+        $employe->unite = Auth::user()->unite;
+        $employe->statut = $request->input('statut');
         $employe->date_naissance = $request->input('date_naissance');
         $employe->date_rec = $request->input('date_rec');
+        $employe->affectation = $request->input('affectation');
+        $employe->poste_risque = $request->input('poste_risque');
+        $employe->visite_embauche = $request->input('visite_embauche');
 
         $employe->save();
 
@@ -61,12 +63,15 @@ class EmployeController extends Controller
      * @param  \App\Employe  $employe
      * @return \Illuminate\Http\Response
      */
-    public function show(Employe $id)
+    public function show($id)
     {
-        //
+        $employe = Employe::find($id);
+        return view('employe.profil')->with([
+            'employe' => $employe
+        ]);
     }
 
-    public function update(Request $request, Employe $id)
+    public function update(Request $request, $id)
     {
        $employe = Employe::find($id);
     }
@@ -89,7 +94,7 @@ class EmployeController extends Controller
 
       public function export() 
     {
-        return Excel::download(new EmployesExport, 'employes.xlsx');
+        return Excel::download(new EmployesExport(), 'employes.xlsx');
     }
    
 }

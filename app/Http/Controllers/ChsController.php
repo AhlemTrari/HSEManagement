@@ -31,7 +31,7 @@ class ChsController extends Controller
             $file_name = time().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('/uploads/commissions/'),$file_name);
         }
-        $commission->file = '/uploads/freelancers/'.$file_name; 
+        $commission->file = '/uploads/commissions/'.$file_name; 
         
         $commission->save();
         return redirect('/CommissionHygieneSecurite');

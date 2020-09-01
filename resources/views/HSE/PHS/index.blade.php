@@ -150,22 +150,20 @@
                                 <thead>
                                     <tr>
                                         <th>Intitulé</th>
-                                        <th>Plan</th>
-                                        <th>Date</th>
+                                        <th>Projet</th>
                                         @if (Auth::user()->is_admin)
                                             <th>Unité</th>
                                         @endif
-                                        <th>Action</th>
+                                        <th style="width: 20%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($canevas as $caneva)
+                                    @foreach ($plans as $plan)
                                     <tr>
-                                        <td>{{$caneva->num}}</td>
-                                        <td >{{$caneva->employe->nom}}</td>
-                                        <td >{{$caneva->date}}</td>
+                                        <td>{{$plan->intitule}}</td>
+                                        <td >{{$plan->projet}}</td>
                                         @if (Auth::user()->is_admin)
-                                            @if ($caneva->unite == 1)
+                                            @if ($plan->unite == 1)
                                                 <td>Unité Terga</td>
                                             @else
                                                 <td>Unité Hennaya</td>
@@ -173,19 +171,40 @@
                                         @endif
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="{{url($plan->file)}}" target="_blanck" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">details</i>
                                                 </a>
-                                                <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                @if (!Auth::user()->is_admin)
+                                                <a href="#supp{{ $plan->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
+                                                <div class="modal fade" id="supp{{$plan->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $plan->id }}ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                Voulez-vous vraiment supprimer cette ligne? 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form class="form-inline" action="{{ url('PlanHygieneSecurite/'.$plan->id)}}"  method="POST">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Non</button>
+                                                                    <button type="submit" class="btn btn-danger">Oui</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -200,7 +219,7 @@
 
 <div class="modal fade" id="plan" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form action="{{url('/MedcineDeTravail')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/PlanHygieneSecurite')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
@@ -215,20 +234,14 @@
                                     <input type="text" name="intitule" class="form-control" placeholder="Intitulé">
                                 </div>
                             </div>
-                            
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="projet" class="form-control" placeholder="Projet">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="form-line">
                                     <input id="upload" name="file" class="file-upload__input" type="file" >
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label style="margin-top: 10px">Date :</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-line">
-                                        <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
-                                    </div>
                                 </div>
                             </div>
                         </div>
