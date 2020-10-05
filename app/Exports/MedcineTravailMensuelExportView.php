@@ -14,7 +14,7 @@ class MedcineTravailMensuelExportView implements FromView
     protected $year;
     protected $mois;
 
-    function __construct($year, $mois) {
+    function __construct($mois,$year) {
             $this->year = $year;
             $this->mois = $mois;
     }

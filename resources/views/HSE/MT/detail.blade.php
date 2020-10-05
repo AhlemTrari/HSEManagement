@@ -138,7 +138,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{url('/MedcineDeTravail/exportAnnuel/'.$year)}}" target="_blank" class=" waves-effect waves-block">Excel</a></li>
-                            <li><a href="" target="_blank" class=" waves-effect waves-block">PDF</a></li>
+                            {{-- <li><a href="" target="_blank" class=" waves-effect waves-block">PDF</a></li> --}}
                         </ul>
                     </div>
                 </div>

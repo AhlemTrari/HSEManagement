@@ -133,7 +133,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{url('/MedcineDeTravail/exportMensuel/'.$mois.'/'.$year)}}" target="_blank" class=" waves-effect waves-block">Excel</a></li>
-                            <li><a href="" target="_blank" class=" waves-effect waves-block">PDF</a></li>
+                            {{-- <li><a href="" target="_blank" class=" waves-effect waves-block">PDF</a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -228,9 +228,100 @@
                                             <td >{{$caneva->visite_periodique}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/MedcineDeTravail/show/'.$caneva->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <a type="button" data-toggle="modal" data-target="#show" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">details</i>
                                                     </a>
+                                                    
+                                                    <div class="modal fade" id="show" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="largeModalLabel">Canevas de medecine da travail</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Matricule </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->employe->matricule}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Nom & prénom </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->employe->nom}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Date de naissance </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->employe->date_naissance}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Date de recrutement </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->employe->date_rec}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Affectation </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->affectation}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Visite periodique </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->visite_periodique}}
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($caneva->radiographie)
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Radiographie </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->radiographie}}
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                    @if ($caneva->examen_bio)
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Examen bio </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->examen_bio}}
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                    @if ($caneva->observation)
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <b> Observations </b>
+                                                                        </div>
+                                                                        <div class="content col-md-8">
+                                                                            {{$caneva->observation}}
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     @if (!Auth::user()->is_admin)
                                                     <a href="#edit{{ $caneva->id }}Modal" type="button" data-toggle="modal" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">edit</i>
@@ -342,4 +433,5 @@
 
         </div>
     </section>
+    
  @endsection

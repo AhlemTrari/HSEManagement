@@ -14,7 +14,7 @@ class MedcineTravailTrimestrielExportView implements FromView
     protected $year;
     protected $t;
 
-    function __construct($year, $t) {
+    function __construct($t,$year) {
             $this->year = $year;
             $this->t = $t;
     }

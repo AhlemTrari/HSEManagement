@@ -129,7 +129,7 @@
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
                         <div class="image-area">
-                            <img src="{{asset('assets/images/user-lg.jpg')}}" alt="Profile Image" />
+                            <img src="{{asset('assets/images/userDefault.png')}}" height="150px" alt="Profile Image" />
                         </div>
                         <div class="content-area">
                             <h3>{{$employe->nom}}</h3>
@@ -158,47 +158,6 @@
                     </div> --}}
 
                 </div>
-
-                <div class="card card-about-me">
-                    <div class="header">
-                        <h2>ABOUT ME</h2>
-                    </div>
-                    <div class="body">
-                         
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">location_on</i>
-                                    Location
-                                </div>
-                                <div class="content">
-                                    Malibu, California
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">edit</i>
-                                    Skills
-                                </div>
-                                <div class="content">
-                                    <span class="label bg-red">UI Design</span>
-                                    <span class="label bg-teal">JavaScript</span>
-                                    <span class="label bg-blue">PHP</span>
-                                    <span class="label bg-amber">Node.js</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">notes</i>
-                                    Description
-                                </div>
-                                <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
             <div class="col-xs-12 col-sm-9">
                 <div class="card">
@@ -211,12 +170,42 @@
 
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                    <div class="row">
-                                        <div class="title">
-                                            Education
+                                    <div class="row container">
+                                        <div class="col-md-2">
+                                            <b> Matricule </b>
                                         </div>
-                                        <div class="content">
-                                            B.S. in Computer Science from the University of Tennessee at Knoxville
+                                        <div class="content col-md-10">
+                                            {{$employe->matricule}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Sexe</b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->sexe}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Statut </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->statut}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Date de naissance </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->date_naissance}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Date de recrutement </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->date_rec}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Affectation </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->affectation}}
                                         </div>
                                     </div>
                                 </div>
