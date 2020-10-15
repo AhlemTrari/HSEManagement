@@ -91,6 +91,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -174,13 +180,13 @@
                                             @endif
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/DeclarationAccidentM/show/'.$declaration->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('/DeclarationAccidentM/show/'.$declaration->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
-                                                    <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
+                                                    <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float" title="Modifier">
                                                         <i class="material-icons">edit</i>
                                                     </a>
-                                                    <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                    <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float" title="Supprimer">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 </div>

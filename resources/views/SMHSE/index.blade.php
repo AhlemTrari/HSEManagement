@@ -91,6 +91,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -166,7 +172,7 @@
                                         @if ( Auth::user()->is_admin)
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="#supp{{ $manuel->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $manuel->id }}Modal" title="Supprimer" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <div class="modal fade" id="supp{{$manuel->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $manuel->id }}ModalLabel" aria-hidden="true">
@@ -191,7 +197,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#archiver{{ $manuel->id }}Modal" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#archiver{{ $manuel->id }}Modal" title="Archiver" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">archive</i>
                                                 </a>
                                                 <div class="modal fade" id="archiver{{$manuel->id }}Modal" tabindex="-1" role="dialog">
@@ -274,7 +280,7 @@
                                         @if ( Auth::user()->is_admin)
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="#supp{{ $procedure->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $procedure->id }}Modal" type="button" title="Supprimer" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <div class="modal fade" id="supp{{$procedure->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $procedure->id }}ModalLabel" aria-hidden="true">
@@ -299,7 +305,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#archiver{{ $procedure->id }}Modal" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#archiver{{ $procedure->id }}Modal" title="Archiver" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">archive</i>
                                                 </a>
                                                 <div class="modal fade" id="archiver{{$procedure->id }}Modal" tabindex="-1" role="dialog">
@@ -381,7 +387,7 @@
                                         @if ( Auth::user()->is_admin)
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="#supp{{ $instruction->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $instruction->id }}Modal" type="button" title="Supprimer" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <div class="modal fade" id="supp{{$instruction->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $instruction->id }}ModalLabel" aria-hidden="true">
@@ -406,7 +412,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#archiver{{ $instruction->id }}Modal" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#archiver{{ $instruction->id }}Modal" title="Archiver" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">archive</i>
                                                 </a>
                                                 <div class="modal fade" id="archiver{{$instruction->id }}Modal" tabindex="-1" role="dialog">
@@ -498,7 +504,7 @@
                                         @if ( Auth::user()->is_admin)
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="#supp{{ $enregistrement->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $enregistrement->id }}Modal" title="Supprimer" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <div class="modal fade" id="supp{{$enregistrement->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $enregistrement->id }}ModalLabel" aria-hidden="true">
@@ -523,7 +529,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="#archiver{{ $enregistrement->id }}Modal" data-toggle="modal" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#archiver{{ $enregistrement->id }}Modal" data-toggle="modal" title="Archiver" class="btn bg-grey btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">archive</i>
                                                 </a>
                                                 <div class="modal fade" id="archiver{{$enregistrement->id }}Modal" tabindex="-1" role="dialog">

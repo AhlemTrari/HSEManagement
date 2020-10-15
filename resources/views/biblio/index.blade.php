@@ -86,6 +86,12 @@
                 
             </ul>
         </li>
+        <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
         <li class="active">
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
@@ -155,7 +161,7 @@
                                         <td>{{$emplacement->intitule}}</td>
                                         <td>
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/Bibliotheque/details/'.$emplacement->id)}}"title="Afficher les cartes de cette emplacement" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="{{url('/Bibliotheque/details/'.$emplacement->id)}}" title="Afficher les cartes de cette emplacement" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">details</i>
                                                 </a>
                                             </div>

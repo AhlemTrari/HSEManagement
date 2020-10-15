@@ -86,6 +86,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -148,8 +154,8 @@
                                         <td>Bilan des accidents de materiel année {{$declaration->year}}</td>
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/BilanAccidentM/detail/'.$declaration->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">details</i>
+                                                <a href="{{url('/BilanAccidentM/detail/'.$declaration->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <i class="material-icons">visibility</i>
                                                 </a>
                                             </div>
                                         </td>

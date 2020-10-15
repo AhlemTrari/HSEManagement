@@ -74,6 +74,20 @@ class EmployeController extends Controller
     public function update(Request $request, $id)
     {
        $employe = Employe::find($id);
+
+       $employe->matricule = $request->input('matricule');
+       $employe->nom = $request->input('nom');
+       $employe->sexe = $request->input('sexe');
+       $employe->fonction = $request->input('fonction');
+       $employe->statut = $request->input('statut');
+       $employe->date_naissance = $request->input('date_naissance');
+       $employe->date_rec = $request->input('date_rec');
+       $employe->affectation = $request->input('affectation');
+       $employe->poste_risque = $request->input('poste_risque');
+       $employe->visite_embauche = $request->input('visite_embauche');
+
+       $employe->save();
+       return back();
     }
      
     public function destroy(Employe $id)

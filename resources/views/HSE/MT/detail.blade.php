@@ -87,6 +87,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -221,8 +227,8 @@
                                             <td >{{$caneva->year}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('MedcineDeTravail/mois/'.$caneva->mois.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('MedcineDeTravail/mois/'.$caneva->mois.'/'.$caneva->year)}}" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
                                                 </div>
                                             </td>
@@ -275,8 +281,8 @@
                                             <td >{{$caneva->year}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('MedcineDeTravail/trimestre/'.$caneva->trimestre.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('MedcineDeTravail/trimestre/'.$caneva->trimestre.'/'.$caneva->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
                                                 </div>
                                             </td>
@@ -329,8 +335,8 @@
                                             <td >{{$caneva->year}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('MedcineDeTravail/semestre/'.$caneva->semestre.'/'.$caneva->year)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('MedcineDeTravail/semestre/'.$caneva->semestre.'/'.$caneva->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
                                                 </div>
                                             </td>

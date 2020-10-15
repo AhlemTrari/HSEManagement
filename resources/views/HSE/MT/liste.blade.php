@@ -87,6 +87,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -228,8 +234,8 @@
                                             <td >{{$caneva->visite_periodique}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a type="button" data-toggle="modal" data-target="#show" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a type="button" data-toggle="modal" data-target="#show" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
                                                     
                                                     <div class="modal fade" id="show" tabindex="-1" role="dialog">

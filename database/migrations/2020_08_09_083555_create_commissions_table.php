@@ -16,6 +16,13 @@ class CreateCommissionsTable extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('intitule');
+            $table->integer('unite');
+            $table->string('date');
+            $table->integer('reunions_chs');
+            $table->integer('reunions_extra');
+            $table->integer('nbr_enquete');
+            $table->string('cas_recours');
+            $table->string('file');
             $table->timestamps();
         });
     }

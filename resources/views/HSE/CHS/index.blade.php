@@ -88,6 +88,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -159,7 +165,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($commissions as $commission)
+                                    @foreach ($commissions as $commission)
                                     <tr>
                                         <td>{{$commission->intitule}}</td>
                                         <td ><a href="{{url($commission->file)}}""></a></td>
@@ -173,8 +179,8 @@
                                         @endif
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">details</i>
+                                                <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <i class="material-icons">visibility</i>
                                                 </a>
                                                 <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
@@ -182,7 +188,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -211,20 +217,75 @@
                                     <input type="text" name="intitule" class="form-control" placeholder="Intitulé">
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input id="upload" name="file" class="file-upload__input" type="file" >
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label style="margin-top: 10px">Date de commission</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-line">
-                                        <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
+                                        <input type="month" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>Nombre de réunions CHS</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" name="reunions_chs" class="form-control text-center" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>Nombre de réunions CHS extraordinaire</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" name="reunions_extra" class="form-control text-center" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>Nombre d'enquêtes menées par la CHS</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" name="nbr_enquete" class="form-control text-center" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>Nombre d'enquêtes menées par la CHS</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" name="cas_recours" class="form-control text-center" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input id="upload" name="file" class="file-upload__input" type="file" >
                                 </div>
                             </div>
                         </div>

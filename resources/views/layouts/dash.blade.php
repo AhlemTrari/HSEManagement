@@ -75,9 +75,13 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <!-- <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a> -->
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">&emsp; &emsp; APMC - Divindus</a>
+                <a class="navbar-brand" href="{{url('/home')}}">
+                    <div class="row">
+                        &emsp;<img src="{{asset('assets/logo.png')}}" height="50px" style="margin-top: -15px"> &emsp; APMC - Divindus
+                    </div>
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">

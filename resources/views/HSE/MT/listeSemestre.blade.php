@@ -87,6 +87,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -228,8 +234,8 @@
                                             <td >{{$caneva->visite_periodique}}</td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a>
                                                     @if (!Auth::user()->is_admin)
                                                     <a href="#edit{{ $caneva->id }}Modal" type="button" data-toggle="modal" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">

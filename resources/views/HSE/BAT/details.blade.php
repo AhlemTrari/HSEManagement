@@ -90,6 +90,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -187,12 +193,12 @@
                                             <td >
                                                 <div class="icon-button-demo">
                                                     @if (Auth::user()->is_admin)
-                                                    <a href="{{url('/BilanAccidentT/BilanMoisA/'.$bilan->mois.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('/BilanAccidentT/BilanMoisA/'.$bilan->mois.'/'.$bilan->annee)}}" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a> 
                                                     @else
-                                                    <a href="{{url('/BilanAccidentT/BilanMois/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">details</i>
+                                                    <a href="{{url('/BilanAccidentT/BilanMois/'.$bilan->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
                                                     </a> 
                                                     @endif
                                                 </div>
@@ -236,12 +242,12 @@
                                                 <td >
                                                     <div class="icon-button-demo">
                                                         @if (Auth::user()->is_admin)
-                                                        <a href="{{url('/BilanAccidentT/BilanTrimestreA/'.$bilan->trimestre.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                            <i class="material-icons">details</i>
+                                                        <a href="{{url('/BilanAccidentT/BilanTrimestreA/'.$bilan->trimestre.'/'.$bilan->annee)}}" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">visibility</i>
                                                         </a> 
                                                         @else
-                                                        <a href="{{url('/BilanAccidentT/BilanTrimestre/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                            <i class="material-icons">details</i>
+                                                        <a href="{{url('/BilanAccidentT/BilanTrimestre/'.$bilan->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">visibility</i>
                                                         </a> 
                                                         @endif
                                                     </div>
@@ -284,12 +290,12 @@
                                                 <td >
                                                     <div class="icon-button-demo">
                                                         @if (Auth::user()->is_admin)
-                                                        <a href="{{url('/BilanAccidentT/BilanSemestreA/'.$bilan->semestre.'/'.$bilan->annee)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                            <i class="material-icons">details</i>
+                                                        <a href="{{url('/BilanAccidentT/BilanSemestreA/'.$bilan->semestre.'/'.$bilan->annee)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">visibility</i>
                                                         </a> 
                                                         @else
-                                                        <a href="{{url('/BilanAccidentT/BilanSemestre/'.$bilan->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                            <i class="material-icons">details</i>
+                                                        <a href="{{url('/BilanAccidentT/BilanSemestre/'.$bilan->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                            <i class="material-icons">visibility</i>
                                                         </a> 
                                                         @endif
                                                     </div>

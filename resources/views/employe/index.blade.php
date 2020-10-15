@@ -87,6 +87,12 @@
             </ul>
         </li>
         <li>
+            <a href="{{url('/RapportActivite')}}">
+                <i class="material-icons">insert_chart</i>
+                <span>Rapport d'activité</span>
+            </a>
+        </li>
+        <li>
             <a href="{{url('/Bibliotheque')}}">
                 <i class="material-icons col-amber">donut_large</i>
                 <span>Bibliothèque</span>
@@ -176,14 +182,154 @@
                                         <td>{{$employe->date_rec}}</td>
                                         <td>
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/employes/profil/'.$employe->id)}}" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">details</i>
+                                                <a href="{{url('/employes/profil/'.$employe->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                    <i class="material-icons" >visibility</i>
                                                 </a>
                                                 @if (!Auth::user()->is_admin)
-                                                <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#edit{{ $employe->id }}Modal" type="button" data-toggle="modal" type="button" title="Modifier" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                                <a href="#supp{{ $employe->id }}Modal" type="button" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <div class="modal fade" id="edit{{ $employe->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="edit{{ $employe->id }}ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <form action="{{url('employes')}}" method="POST" enctype="multipart/form-data">
+                                                            <input type="hidden" name="_method" value="PUT">
+                                                            {{ csrf_field() }}
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="largeModalLabel">Modifier un employé</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    <div class="row clearfix" style="margin-top: 30px">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group row" style="margin-top: 10px">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Matricule</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" class="form-control" name="matricule" value="{{$employe->matricule}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top: 10px">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Nom & Prénom</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" class="form-control" name="nom" value="{{$employe->nom}}" placeholder="Nom et prénom">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="form-group row" style="margin-top: 10px">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Sexe</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="demo-radio-button">
+                                                                                        <input name="sexe" type="radio" id="radio_9" value="Homme" {{ $employe->sexe == 'Homme' ? 'checked' : ''}}>
+                                                                                        <label for="radio_9">Homme</label>
+                                                                                        <input name="sexe" type="radio" id="radio_10" value="Femme" {{ $employe->sexe == 'Femme' ? 'checked' : ''}}>
+                                                                                        <label for="radio_10">Femme</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top: 10px">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Fonction</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <select name="fonction" class="form-control show-tick" required>
+                                                                                        <option value="">-- Selectionnez une fonction --</option>
+                                                                                        @foreach ($fonctions as $fct)
+                                                                                        <option value="{{$fct->intitule}}" {{ $employe->fonction == $fct->intitule ? 'selected' : '' }}>{{$fct->intitule}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top: 10px">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Statut</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="demo-radio-button">
+                                                                                        <input name="statut" type="radio" id="radio_11" value="Actif" {{ $employe->statut == 'Actif' ? 'checked' : ''}}>
+                                                                                        <label for="radio_11">Actif</label>
+                                                                                        <input name="statut" type="radio" id="radio_12" value="Non actif" {{ $employe->statut == 'Non actif' ? 'checked' : ''}}>
+                                                                                        <label for="radio_12">Non actif</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Date de naissance</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="date" name="date_naissance" class="form-control date" value="{{$employe->date_naissance}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Date de recrutement</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="date" name="date_rec" class="form-control date" value="{{$employe->date_rec}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Affectation</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" class="form-control" name="affectation" value="{{$employe->affectation}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Poste à risque</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="demo-radio-button">
+                                                                                        <input name="poste_risque" type="radio" id="radio_13" value="Oui" {{ $employe->poste_risque == 'Oui' ? 'checked' : ''}}>
+                                                                                        <label for="radio_13">Oui</label>
+                                                                                        <input name="poste_risque" type="radio" id="radio_14" value="Non" {{ $employe->poste_risque == 'Non' ? 'checked' : ''}}>
+                                                                                        <label for="radio_14">Non</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Visite d'Embauche</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="demo-radio-button">
+                                                                                        <input name="visite_embauche" type="radio" id="radio_15" value="Oui" {{ $employe->visite_embauche == 'Oui' ? 'checked' : ''}}>
+                                                                                        <label for="radio_15">Oui</label>
+                                                                                        <input name="visite_embauche" type="radio" id="radio_16" value="Non" {{ $employe->visite_embauche == 'Non' ? 'checked' : ''}}>
+                                                                                        <label for="radio_16">Non</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-link waves-effect">Valider</button>
+                                                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Annuler</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <a href="#supp{{ $employe->id }}Modal" type="button" data-toggle="modal" title="Supprimer" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
                                                 <div class="modal fade" id="supp{{$employe->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $employe->id }}ModalLabel" aria-hidden="true">
@@ -284,9 +430,17 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group" style="margin-top: 30px">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" name="statut" placeholder="Statut">
+                            <div class="form-group row" style="margin-top: 10px">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Statut</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="demo-radio-button">
+                                        <input name="statut" type="radio" id="radio_7" value="Actif" checked="">
+                                        <label for="radio_7">Actif</label>
+                                        <input name="statut" type="radio" id="radio_8" value="Non actif">
+                                        <label for="radio_8">Non actif</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">

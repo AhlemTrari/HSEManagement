@@ -26,6 +26,10 @@ class ChsController extends Controller
         $commission->unite = Auth::user()->unite;
         $commission->date = $request->input('date');
         $commission->intitule = $request->input('intitule');
+        $commission->reunions_chs = $request->input('reunions_chs');
+        $commission->reunions_extra = $request->input('reunions_extra');
+        $commission->nbr_enquete = $request->input('nbr_enquete');
+        $commission->cas_recours = $request->input('cas_recours');
         if($request->hasFile('file')){
             $file = $request->file('file');
             $file_name = time().'.'.$file->getClientOriginalExtension();

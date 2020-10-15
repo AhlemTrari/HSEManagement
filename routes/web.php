@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Employe
 Route::get('/employes','EmployeController@index');
 Route::post('/employes','EmployeController@store');
+Route::put('/employes/{id}','EmployeController@update');
 Route::get('/employes/profil/{id}','EmployeController@show');
 Route::post('/employes/import','EmployeController@import');
 Route::get('/employes/export','EmployeController@export');
