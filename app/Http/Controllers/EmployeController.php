@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use cache;
 use App\Employe;
 use App\Fonction;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Exports\EmployesExport;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -90,11 +92,15 @@ class EmployeController extends Controller
        return back();
     }
      
-    public function destroy(Employe $id)
+    public function destroy($id)
     {
         $employe = Employe::find($id);
-        $employe->delete();
-        return redirect('employes');
+        try{
+            $employe->delete();
+            return back();
+        }catch(\Exception $e){
+            return back()-> with('error', 'Ooops. Vous ne pouvez pas supprimer  '.$employe->nom); 
+        }
     }
 
     public function import(Request $request)

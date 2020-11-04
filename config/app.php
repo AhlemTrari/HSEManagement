@@ -164,6 +164,8 @@ return [
 
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        // GrofGraf\LaravelPDFMerger\Providers\PDFMergerServiceProvider::class,
+        Webklex\PDFMerger\Providers\PDFMergerServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -231,7 +233,9 @@ return [
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        // 'PDFMerger' => GrofGraf\LaravelPDFMerger\Facades\PDFMergerFacade::class,
+        
+        'PDFMerger' => Webklex\PDFMerger\Facades\PDFMergerFacade::class
     ],
 
 ];

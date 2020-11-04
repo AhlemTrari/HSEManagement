@@ -146,18 +146,16 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                           Commission d'unité Hygiène et Sécurité :
+                           Commission d'unité Hygiène et Sécurité Par année:
                         </h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
                                         <th>Intitulé</th>
-                                        <th>Fichier</th>
-                                        <th>Date</th>
+                                        <th>Année</th>
                                         @if (Auth::user()->is_admin)
                                             <th>Unité</th>
                                         @endif
@@ -167,9 +165,8 @@
                                 <tbody>
                                     @foreach ($commissions as $commission)
                                     <tr>
-                                        <td>{{$commission->intitule}}</td>
-                                        <td ><a href="{{url($commission->file)}}""></a></td>
-                                        <td >{{$commission->date}}</td>
+                                        <td>Commissions Hygiene Securite année {{$commission->year}}</td>
+                                        <td >{{$commission->year}}</td>
                                         @if (Auth::user()->is_admin)
                                             @if ($commission->unite == 1)
                                                 <td>Unité Terga</td>
@@ -179,11 +176,8 @@
                                         @endif
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/MedcineTravail/show/'.$caneva->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="{{url('/CommissionHygieneSecurite/show/'.$commission->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">visibility</i>
-                                                </a>
-                                                <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
-                                                    <i class="material-icons">delete_forever</i>
                                                 </a>
                                             </div>
                                         </td>
@@ -200,6 +194,7 @@
 
     </div>
 </section>
+
 <div class="modal fade" id="commission" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <form action="{{url('/CommissionHygieneSecurite')}}" method="POST" enctype="multipart/form-data">
@@ -214,7 +209,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="intitule" class="form-control" placeholder="Intitulé">
+                                    <input type="text" name="intitule" class="form-control" placeholder="Intitulé" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -223,7 +218,21 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-line">
-                                        <input type="month" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
+                                        <input type="month" name="date" class="form-control date" placeholder="Ex: 30/07/2016" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>PV de la CHS</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="upload" name="file1" class="file-upload__input" type="file" accept="application/pdf" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +245,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="number" name="reunions_chs" class="form-control text-center" value="0">
+                                            <input type="number" name="reunions_chs" class="form-control text-center" value="0" required>
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +259,21 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="number" name="reunions_extra" class="form-control text-center" value="0">
+                                            <input id="reunions_extra" type="number" name="reunions_extra" class="form-control text-center" value="0" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="file2" class="row" style="display: none">
+                                <div class="col-md-6 " style="margin-top: 10px" >
+                                    <div class="form-group">
+                                        <label>PV de la CHS extraordinaire</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" >
+                                        <div class="form-line">
+                                            <input id="upload" name="file2" class="file-upload__input" type="file" accept="application/pdf">
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +287,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="number" name="nbr_enquete" class="form-control text-center" value="0">
+                                            <input type="number" name="nbr_enquete" class="form-control text-center" value="0" required>
                                         </div>
                                     </div>
                                 </div>
@@ -272,20 +295,15 @@
                             <div class="row">
                                 <div class="col-md-6 " style="margin-top: 10px" >
                                     <div class="form-group">
-                                        <label>Nombre d'enquêtes menées par la CHS</label>
+                                        <label>Nombre de cas de recours à un expert</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="number" name="cas_recours" class="form-control text-center" value="0">
+                                            <input type="number" name="cas_recours" class="form-control text-center" value="0" required>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input id="upload" name="file" class="file-upload__input" type="file" >
                                 </div>
                             </div>
                         </div>
@@ -299,4 +317,11 @@
         </form>
     </div>
 </div>
+{{-- <script type="text/javascript">
+function file2() {
+    if(document.getElementById("reunions_extra").value == "1"){
+    document.getElementById("file2").style.display="block";
+    }
+}
+</script> --}}
 @endsection

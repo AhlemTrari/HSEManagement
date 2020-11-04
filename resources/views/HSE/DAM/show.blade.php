@@ -169,16 +169,8 @@
                                 <span> {{$declaration->responsable->matricule}}</span>
                         </div>
                         <div class="col-sm-5">
-                                <strong>Qualification professionnelle : &nbsp;</strong>
-                                <span> {{$declaration->responsable->fonction}}</span>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-5">
-                                <strong>Nom : &nbsp;</strong>
+                                <strong>Nom & prénom: &nbsp;</strong>
                                 <span> {{$declaration->responsable->nom}}</span>
-                        </div>
-                        <div class=" col-sm-5">
-                                <strong>Prénom : &nbsp;</strong>
-                                <span> {{$declaration->responsable->prenom}}</span>
                         </div>
                         <div class="col-sm-offset-1 col-sm-5">
                             <p>
@@ -189,8 +181,12 @@
                         <div class="col-sm-5">
                             <p>
                                 <strong>Date de recrutement : &nbsp;</strong>
-                                <span> {{$declaration->responsable->date_recrutement}}</span>
+                                <span> {{$declaration->responsable->date_rec}}</span>
                             </p>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-5">
+                                <strong>Qualification professionnelle : &nbsp;</strong>
+                                <span> {{$declaration->responsable->fonction}}</span>
                         </div>
                     </div>
                 </div>

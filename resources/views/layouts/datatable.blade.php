@@ -31,6 +31,9 @@
 
     <!-- Bootstrap Select Css -->
     <link href="{{asset('assets/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
+    
+    <!-- Dropzone Css -->
+    <link href="{{asset('assets/plugins/dropzone/dropzone.css')}}" rel="stylesheet">
 
     <!-- Custom Css -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
@@ -197,8 +200,27 @@
                             </li>
                         </ul>
                     </li> -->
-                    <!-- #END# Notifications --><!-- 
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li> -->
+                    <!-- #END# Notifications -->
+                    <!--<li class="pull-right">
+                        <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
+                            <i class="material-icons">more_vert</i></a>
+                        </li> -->
+                        @if (Auth::user()->is_admin)
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                <i class="material-icons">settings</i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{url('/users')}}">
+                                    <i class="material-icons">person</i>Gérer les utilisateurs</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{url('/unites')}}">
+                                    <i class="material-icons">work</i>Gérer les unités</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
                 </ul>
             </div>
         </div>
@@ -385,7 +407,6 @@
         </aside>
         <!-- #END# Right Sidebar -->
     </section>
-    @include('flash-message')
     @yield('content')
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
@@ -433,6 +454,30 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#reunions_extra").on("change paste keyup", function() {
+            if(document.getElementById("reunions_extra").value > 0){
+            document.getElementById("file2").style.display="block";
+            }
+            if(document.getElementById("reunions_extra").value <= 0){
+            document.getElementById("file2").style.display="none";
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#reunions_extra_edit").on("change paste keyup", function() {
+            if(document.getElementById("reunions_extra_edit").value > 0){
+            document.getElementById("file2edit").style.display="block";
+            }
+            if(document.getElementById("reunions_extra_edit").value <= 0){
+            document.getElementById("file2edit").style.display="none";
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
         $('#addEmplacement').on('submit',function (e) {
             e.preventDefault();
             var intitule = $('#intitule').val();
@@ -470,6 +515,9 @@
 
     <!-- Bootstrap Datepicker Plugin Js -->
     <script src="{{asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+    
+    <!-- Dropzone Plugin Js -->
+    <script src="{{asset('assets/plugins/dropzone/dropzone.js')}}"></script>
 
 
      <!-- Jquery DataTable Plugin Js -->
@@ -487,6 +535,8 @@
     <script src="{{asset('assets/js/admin.js')}}"></script>
     <script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
     <script src="{{asset('assets/js/pages/forms/advanced-form-elements.js')}}"></script>
+    
+    
 
     <!-- Demo Js -->
     <script src="{{asset('assets/js/demo.js')}}"></script>

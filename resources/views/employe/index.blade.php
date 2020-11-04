@@ -151,7 +151,8 @@
                 </div>
                 <div class="card">
                     <div class="body">
-
+                        
+                        @include('flash-message')
                         <div class="table-responsive">
 
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -191,7 +192,7 @@
                                                 </a>
                                                 <div class="modal fade" id="edit{{ $employe->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="edit{{ $employe->id }}ModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
-                                                        <form action="{{url('employes')}}" method="POST" enctype="multipart/form-data">
+                                                        <form action="{{url('employes/'.$employe->id)}}" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="_method" value="PUT">
                                                             {{ csrf_field() }}
                                                             <div class="modal-content">
@@ -344,11 +345,11 @@
                                                                 Voulez-vous vraiment supprimer cette employé? 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form class="form-inline" action="{{ url('employes/'.$employe->id)}}"  method="POST">
+                                                                <form class="form-inline" action="{{ url('/employes/'.$employe->id)}}"  method="POST">
                                                                     @method('DELETE')
                                                                     @csrf
-                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Non</button>
-                                                                    <button type="submit" class="btn btn-danger">Oui</button>
+                                                                    <button type="button" class="btn btn-light" data-dismiss="modal" style="margin-bottom: 0px">Non</button>
+                                                                    <button type="submit" class="btn btn-danger" style="margin-top: 0px">Oui</button>
                                                                 </form>
                                                             </div>
                                                         </div>

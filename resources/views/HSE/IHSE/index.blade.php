@@ -129,13 +129,113 @@
     <section class="content">
         <div class="container-fluid">
            
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
+                        @if ( Auth::user()->is_admin)
+                        <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nv">Nouvelle induction HSE</button>
+                        @endif
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               Inductions HSE :
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
 
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Intitulé</th>
+                                            <th>Année</th>
+                                            <th style="width: 20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($inductions as $induction)
+                                        <tr>
+                                            <td>Inductions HSE de l'année {{$induction->year}}</td>
+                                            <td >{{$induction->year}}</td>
+                                            <td >
+                                                <div class="icon-button-demo">
+                                                    <a href="{{url('/InductionHSE/show/'.$induction->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+    <div class="modal fade" id="nv" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form action="{{url('/InductionHSE')}}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="largeModalLabel">Induction HSE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-line">
+                                    <select name="employe_id" class="form-control show-tick" required>
+                                        <option value="">-- Selectionnez un employé --</option>
+                                        @foreach ($employes as $employe)
+                                        <option value="{{$employe->id}}">{{$employe->matricule}} - {{$employe->nom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row clearfix" style="margin-top: 30px">
+                            <div class="col-sm-12">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label style="margin-top: 10px">Date d'induction</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-line">
+                                            <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 ">
+                                        <label style="margin-top: 10px">Enregistrement</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input id="upload" name="file" class="file-upload__input" type="file" accept="application/pdf" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-link waves-effect">Valider</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

@@ -19,6 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Users
+Route::get('/users','UserController@index');
+
+//Unités
+Route::get('/unites','UniteController@index');
+Route::post('/unites','UniteController@store');
+Route::delete('/unites/{id}','UniteController@destroy');
+
 //Employe
 Route::get('/employes','EmployeController@index');
 Route::post('/employes','EmployeController@store');
@@ -63,14 +71,20 @@ Route::get('/BilanAccidentM/semestre/{s}/{year}','BamController@parSemestre');
 //DAT
 Route::get('/DeclarationAccidentT','DatController@index');
 Route::get('/DeclarationAccidentT/create','DatController@create');
+Route::get('/DeclarationAccidentT/{id}/edit','DatController@edit');
+Route::put('/DeclarationAccidentT/{id}','DatController@update');
 Route::post('/DeclarationAccidentT','DatController@store');
 Route::get('/DeclarationAccidentT/show/{id}','DatController@show');
+Route::delete('/DeclarationAccidentT/{id}','DatController@destroy');
 
 //DAM
 Route::get('/DeclarationAccidentM','DamController@index');
 Route::get('/DeclarationAccidentM/create','DamController@create');
+Route::get('/DeclarationAccidentM/{id}/edit','DamController@edit');
+Route::put('/DeclarationAccidentM/{id}','DamController@update');
 Route::post('/DeclarationAccidentM','DamController@store');
 Route::get('/DeclarationAccidentM/show/{id}','DamController@show');
+Route::delete('/DeclarationAccidentM/{id}','DamController@destroy');
 
 //MT
 Route::get('/MedcineDeTravail','MtController@index');
@@ -90,6 +104,9 @@ Route::get('/MedcineDeTravail/exportSemestriel/{t}/{year}','MtController@exportS
 //CHS
 Route::get('/CommissionHygieneSecurite','ChsController@index');
 Route::post('/CommissionHygieneSecurite','ChsController@store');
+Route::put('/CommissionHygieneSecurite/{id}','ChsController@update');
+Route::get('/CommissionHygieneSecurite/show/{year}','ChsController@show');
+Route::delete('/CommissionHygieneSecurite/{id}','ChsController@destroy');
 
 //PHS
 Route::get('/PlanHygieneSecurite','PhsController@index');
@@ -99,6 +116,8 @@ Route::delete('/PlanHygieneSecurite/{id}','PhsController@destroy');
 //IHSE
 Route::get('/InductionHSE','IhseController@index');
 Route::post('/InductionHSE','IhseController@store');
+Route::get('/InductionHSE/show/{year}','IhseController@show');
+Route::delete('/InductionHSE/{id}','IhseController@destroy');
 
 //MLCI
 Route::get('/MLCI','MlciController@index');

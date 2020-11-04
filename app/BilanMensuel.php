@@ -38,5 +38,9 @@ class BilanMensuel extends Model
 	{
 	    return $this->belongsTo('App\BilanSemestriel');
 	}
+    public function unite()
+	{
+	    return $this->belongsTo('App\Unite');
+	}
 
 }

@@ -10,4 +10,8 @@ class DeclarationAccidentMateriel extends Model
 	{
 	    return $this->belongsTo('App\Employe','employe_id');
     }
+    public function unite()
+	{
+	    return $this->belongsTo('App\Unite');
+	}
 }

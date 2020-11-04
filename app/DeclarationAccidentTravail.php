@@ -14,4 +14,8 @@ class DeclarationAccidentTravail extends Model
 	{
 	    return $this->belongsTo('App\Employe','tiers_id');
     }
+    public function unite()
+	{
+	    return $this->belongsTo('App\Unite');
+	}
 }

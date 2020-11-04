@@ -183,12 +183,36 @@
                                                     <a href="{{url('/DeclarationAccidentM/show/'.$declaration->id)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
-                                                    <a type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float" title="Modifier">
+                                                    @if (!Auth::user()->is_admin)
+                                                    <a href="{{url('/DeclarationAccidentM/'.$declaration->id.'/edit')}}" type="button" class="btn bg-light-green btn-circle waves-effect waves-circle waves-float" title="Modifier">
                                                         <i class="material-icons">edit</i>
                                                     </a>
-                                                    <a type="button" class="btn bg-red btn-circle waves-effect waves-circle waves-float" title="Supprimer">
+                                                    <a href="#supp{{ $declaration->id }}Modal" type="button" data-toggle="modal" title="Supprimer" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
+                                                    <div class="modal fade" id="supp{{$declaration->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $declaration->id }}ModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center">
+                                                                    Voulez-vous vraiment supprimer cette ligne? 
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form class="form-inline" action="{{ url('/DeclarationAccidentM/'.$declaration->id)}}"  method="POST">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal" style="margin-bottom: 0px">Non</button>
+                                                                        <button type="submit" class="btn btn-danger" style="margin-top: 0px">Oui</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

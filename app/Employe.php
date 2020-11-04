@@ -16,8 +16,20 @@ class Employe extends Model
     {
         return $this->hasMany('App\DeclarationAccidentTravail','tiers_id');
     }
+    public function declarationsAM()
+    {
+        return $this->hasMany('App\DeclarationAccidentMateriel','employe_id');
+    }
     public function canevas()
     {
         return $this->hasMany('App\MedcineTravail','employe_id');
     }
+    public function inductions()
+    {
+        return $this->hasMany('App\Induction','employe_id');
+    }
+    public function unite()
+	{
+	    return $this->belongsTo('App\Unite');
+	}
 }
