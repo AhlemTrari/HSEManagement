@@ -15,6 +15,14 @@ class CreateMlcisTable extends Migration
     {
         Schema::create('mlcis', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('num')->nullable();
+            $table->integer('unite')->nullable();
+            $table->integer('nbr')->nullable();
+            $table->string('icone')->nullable();
+            $table->string('indice')->nullable();
+            $table->string('date')->nullable();
+            $table->unsignedBigInteger('unite_id')->nullable();
+            $table->foreign('unite_id')->references('id')->on('unites')->onDelete('restrict');
             $table->timestamps();
         });
     }

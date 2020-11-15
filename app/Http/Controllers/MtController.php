@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Amenagement;
 use App\Employe;
 use App\Exports\MedcineTravailExportView;
 use App\Exports\MedcineTravailMensuelExportView;
@@ -54,6 +55,7 @@ class MtController extends Controller
             $visite_periodique = MedcineTravail::whereYear('visite_periodique',$year)->count();
             $radiographie = MedcineTravail::whereYear('radiographie',$year)->count();
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)->count();
 
         }else{
             $canevas = MedcineTravail::select('unite',DB::raw('YEAR(visite_periodique) as year'),DB::raw('MONTH(visite_periodique) as mois'))
@@ -80,6 +82,11 @@ class MtController extends Controller
                                         ->where('unite',Auth::user()->unite)->count();
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                                         ->where('unite',Auth::user()->unite)->count();
+                                        
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                                        ->whereHas('employe', function ($query) {
+                                            return $query->where('unite', '=', Auth::user()->unite);
+                                        })->count();
         }
 
 
@@ -93,6 +100,7 @@ class MtController extends Controller
              'visite_periodique' => $visite_periodique,
              'radiographie' => $radiographie,
              'examen_bio' => $examen_bio,
+             'amenagements' => $amenagements,
              'year' => $year,
          ]);
     }
@@ -128,6 +136,8 @@ class MtController extends Controller
                             ->where(DB::raw('MONTH(radiographie)'),$mois)->count() ;
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                             ->where(DB::raw('MONTH(examen_bio)'),$mois)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->where(DB::raw('MONTH(created_at)'),$mois)->count();
         }else{
             $canevas = MedcineTravail::where('unite',Auth::user()->unite)
                                     ->where(DB::raw('MONTH(visite_periodique)'),$mois)
@@ -146,8 +156,12 @@ class MtController extends Controller
                             ->where('unite',Auth::user()->unite)->count() ;
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                             ->where(DB::raw('MONTH(examen_bio)'),$mois)
-                            ->where('unite',Auth::user()->unite)
                             ->where('unite',Auth::user()->unite)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->where(DB::raw('MONTH(created_at)'),$mois)
+                            ->whereHas('employe', function ($query) {
+                                return $query->where('unite', '=', Auth::user()->unite);
+                            })->count();
         }
 
          return view('HSE.MT.liste')->with([
@@ -157,6 +171,7 @@ class MtController extends Controller
              'visite_embauche' => $visite_embauche,
              'visite_periodique' => $visite_periodique,
              'radiographie' => $radiographie,
+             'amenagements' => $amenagements,
              'examen_bio' => $examen_bio,
          ]);
     }
@@ -186,6 +201,8 @@ class MtController extends Controller
                             ->whereIn(DB::raw('MONTH(radiographie)'),$mois)->count() ;
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                             ->whereIn(DB::raw('MONTH(examen_bio)'),$mois)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->whereIn(DB::raw('MONTH(created_at)'),$mois)->count();
 
         }else{
             $canevas = MedcineTravail::where('unite',Auth::user()->unite)
@@ -205,6 +222,11 @@ class MtController extends Controller
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                             ->whereIn(DB::raw('MONTH(examen_bio)'),$mois)
                             ->where('unite',Auth::user()->unite)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->whereIn(DB::raw('MONTH(created_at)'),$mois)
+                            ->whereHas('employe', function ($query) {
+                                return $query->where('unite', '=', Auth::user()->unite);
+                            })->count();
         }
 
          return view('HSE.MT.listeTrimestre')->with([
@@ -215,6 +237,7 @@ class MtController extends Controller
              'visite_periodique' => $visite_periodique,
              'radiographie' => $radiographie,
              'examen_bio' => $examen_bio,
+             'amenagements' => $amenagements,
          ]);
     }
     public function parSemestre($s,$year)
@@ -239,6 +262,8 @@ class MtController extends Controller
                                             ->whereIn(DB::raw('MONTH(radiographie)'),$mois)->count() ;
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                                             ->whereIn(DB::raw('MONTH(examen_bio)'),$mois)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->whereIn(DB::raw('MONTH(created_at)'),$mois)->count();
         }else{
             $canevas = MedcineTravail::where('unite',Auth::user()->unite)
                                     ->where('semestre',$s)
@@ -257,6 +282,11 @@ class MtController extends Controller
             $examen_bio = MedcineTravail::whereYear('examen_bio',$year)
                                             ->whereIn(DB::raw('MONTH(examen_bio)'),$mois)
                                             ->where('unite',Auth::user()->unite)->count();
+            $amenagements = Amenagement::whereYear('created_at',$year)
+                            ->whereIn(DB::raw('MONTH(created_at)'),$mois)
+                            ->whereHas('employe', function ($query) {
+                                return $query->where('unite', '=', Auth::user()->unite);
+                            })->count();
         }
 
         
@@ -269,6 +299,7 @@ class MtController extends Controller
              'visite_periodique' => $visite_periodique,
              'radiographie' => $radiographie,
              'examen_bio' => $examen_bio,
+             'amenagements' => $amenagements,
          ]);
     }
     public function store(Request $request)

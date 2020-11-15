@@ -42,9 +42,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('/MedcineDeTravail')}}" >
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <span>Médecine de travail</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{url('/MedcineDeTravail')}}" >
+                                <span>Canevas de médecine de travail</span>
+                            </a>
+                        </li>
+                        <li >
+                            <a href="{{url('/AmenagementPost')}}" >
+                                <span>Aménagements du poste</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{url('/CommissionHygieneSecurite')}}">

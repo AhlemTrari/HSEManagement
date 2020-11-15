@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Users
 Route::get('/users','UserController@index');
+Route::post('/users','UserController@store');
 
 //Unités
 Route::get('/unites','UniteController@index');
@@ -100,6 +101,11 @@ Route::get('/MedcineDeTravail/exportAnnuel/{year}','MtController@exportAnnuel');
 Route::get('/MedcineDeTravail/exportMensuel/{mois}/{year}','MtController@exportMensuel');
 Route::get('/MedcineDeTravail/exportTrimestriel/{t}/{year}','MtController@exportTrimestriel');
 Route::get('/MedcineDeTravail/exportSemestriel/{t}/{year}','MtController@exportSemestriel');
+
+//Amenagement de poste
+Route::get('/AmenagementPost','AmenagementController@index');
+Route::post('/AmenagementPost','AmenagementController@store');
+Route::delete('/AmenagementPost/{id}','AmenagementController@destroy');
 
 //CHS
 Route::get('/CommissionHygieneSecurite','ChsController@index');

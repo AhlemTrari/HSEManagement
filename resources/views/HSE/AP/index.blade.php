@@ -1,7 +1,7 @@
 @extends('layouts.datatable')
 
 @section('titre')
-<title>Induction HSE | APMC Divindus</title>
+<title>Aménagements des postes | APMC Divindus</title>
 @endsection
 
 @section('menu')
@@ -26,7 +26,7 @@
                 <span>HSE</span>
             </a>
             <ul class="ml-menu">
-                <li >
+                <li>
                     <a href="{{url('/BilanAccidentT')}}">
                         <span>Bilan des accidents de travail</span>
                     </a>
@@ -36,17 +36,17 @@
                         <span>Bilan des accidents de matériels</span>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <span>Médecine de travail</span>
                     </a>
                     <ul class="ml-menu">
-                        <li >
+                        <li>
                             <a href="{{url('/MedcineDeTravail')}}" >
                                 <span>Canevas de médecine de travail</span>
                             </a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="{{url('/AmenagementPost')}}" >
                                 <span>Aménagements du poste</span>
                             </a>
@@ -73,7 +73,7 @@
                         <span>Déclarations des accidents de matériels</span>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="{{url('/InductionHSE')}}">
                         <span>Induction HSE</span>
                     </a>
@@ -91,6 +91,7 @@
                 <span>SIE</span>
             </a>
             <ul class="ml-menu">
+               
                 <li>
                     <a href="pages/ui/notifications.html"></a>
                 </li>
@@ -136,54 +137,99 @@
     </ul>
 </div>
 @endsection
+
 @section('content')
 
     <section class="content">
         <div class="container-fluid">
-           
             <div class="block-header">
                 <div class="row">
                     <div class="col-md-8"></div>
                     <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
-                        @if ( Auth::user()->is_admin)
-                        <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nv">Nouvelle induction HSE</button>
+                        @if (! Auth::user()->is_admin)
+                            <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#canevas">Nouvel aménagement du poste</button>
                         @endif
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                               Inductions HSE :
+                               Liste des aménagements des poste:
                             </h2>
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Intitulé</th>
-                                            <th>Année</th>
-                                            <th style="width: 20%">Action</th>
+                                            <th>Employé</th>
+                                            @if (Auth::user()->is_admin)
+                                                <th>Unité</th>
+                                            @endif
+                                            <th>Ancien poste</th>
+                                            <th>Nouveau poste</th>
+                                            <th>Date de visite après changement</th>
+                                            <th style="width: 10%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($inductions as $induction)
+                                        @foreach ($amenagements as $amenagement)
                                         <tr>
-                                            <td>Inductions HSE de l'année {{$induction->year}}</td>
-                                            <td >{{$induction->year}}</td>
+                                            <td>
+                                                <a href="{{ url('/employes/profil/'.$amenagement->employe_id) }}">{{$amenagement->employe->nom}}</a>
+                                            </td>
+                                            @if (Auth::user()->is_admin)
+                                                @if ($amenagement->employe->unite == 1)
+                                                    <td>Unité Terga</td>
+                                                @else
+                                                    <td>Unité Hennaya</td>
+                                                @endif
+                                            @endif
+                                            <td >{{$amenagement->old_post}}</td>
+                                            <td >{{$amenagement->new_post}}</td>
+                                            <td >
+                                                @if ($amenagement->visite)
+                                                {{$amenagement->date}} 
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                             <td >
                                                 <div class="icon-button-demo">
-                                                    <a href="{{url('/InductionHSE/show/'.$induction->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
-                                                        <i class="material-icons">visibility</i>
+                                                    <a href="#supp{{ $amenagement->id }}Modal" type="button" data-toggle="modal" title="Supprimer" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                        <i class="material-icons">delete_forever</i>
                                                     </a>
+                                                    <div class="modal fade" id="supp{{$amenagement->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $amenagement->id }}ModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center">
+                                                                    Voulez-vous vraiment supprimer cette ligne? 
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form class="form-inline" action="{{ url('/AmenagementPost/'.$amenagement->id)}}"  method="POST">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="button" class="btn btn-light" data-dismiss="modal" style="margin-bottom: 0px">Non</button>
+                                                                        <button type="submit" class="btn btn-danger" style="margin-top: 0px">Oui</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
+                                        @endforeach 
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -191,15 +237,16 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
-    <div class="modal fade" id="nv" tabindex="-1" role="dialog">
+    <div class="modal fade" id="canevas" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <form action="{{url('/InductionHSE')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{url('/AmenagementPost')}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="largeModalLabel">Induction HSE</h4>
+                        <h4 class="modal-title" id="largeModalLabel">Nouvel amenagement du poste</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row clearfix">
@@ -214,28 +261,36 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="row clearfix" style="margin-top: 30px">
+                        <div class="form-line"  style="margin-top: 30px">
+                            <select name="new_post" class="form-control show-tick" required>
+                                <option value="">-- Nouveau poste --</option>
+                                @foreach ($fonctions as $fct)
+                                <option value="{{$fct->intitule}}">{{$fct->intitule}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-line row"  style="margin-top: 30px">
+                            <div class="col-md-5">
+                                <label style="margin-top: 10px">visite après changement</label>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="demo-radio-button">
+                                    <input name="visite" type="radio" id="radio_1" value="1" checked="">
+                                    <label for="radio_1">Oui</label>
+                                    <input name="visite" type="radio" id="radio_2" value="0" onclick="javascript:visite();">
+                                    <label for="radio_2">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="date_visite" class="row clearfix" style="margin-top: 30px">
                             <div class="col-sm-12">
-                                <div class="form-group row">
+                                <div class="form-group row" >
                                     <div class="col-md-4">
-                                        <label style="margin-top: 10px">Date d'induction</label>
+                                        <label style="margin-top: 10px">Date de visite (Si oui) </label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-line">
-                                            <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 ">
-                                        <label style="margin-top: 10px">Enregistrement</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input id="upload" name="file" class="file-upload__input" type="file" accept="application/pdf" required>
-                                            </div>
+                                            <input type="date" name="date" class="form-control date" placeholder="Ex: 30/07/2016">
                                         </div>
                                     </div>
                                 </div>
@@ -250,4 +305,12 @@
             </form>
         </div>
     </div>
-@endsection
+
+    <script type="text/javascript">
+        function visite() {
+            if (document.getElementById('radio_2').checked) {
+                document.getElementById('date_visite').style.display = 'none';
+            }
+        }
+    </script>
+ @endsection

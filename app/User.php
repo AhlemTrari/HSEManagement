@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function unite()
+    public function unitee()
 	{
-	    return $this->belongsTo('App\Unite');
+	    return $this->belongsTo('App\Unite','unite_id');
 	}
 }

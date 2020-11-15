@@ -12,7 +12,7 @@ class Unite extends Model
     }
     public function users()
     {
-        return $this->hasMany('App\User','unite_id');
+        return $this->hasMany('App\User');
     }
     public function employes()
     {

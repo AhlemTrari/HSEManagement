@@ -2,7 +2,7 @@
 @extends('layouts.datatable')
 
 @section('titre')
-<title>Commission d'unité Hygiène et Sécurité | APMC Divindus</title>
+<title>Unités APMC | APMC Divindus</title>
 @endsection
 
 @section('menu')
@@ -27,7 +27,7 @@
                 <span>HSE</span>
             </a>
             <ul class="ml-menu">
-                <li>
+                <li >
                     <a href="{{url('/BilanAccidentT')}}">
                         <span>Bilan des accidents de travail</span>
                     </a>
@@ -42,7 +42,7 @@
                         <span>Médecine de travail</span>
                     </a>
                     <ul class="ml-menu">
-                        <li >
+                        <li>
                             <a href="{{url('/MedcineDeTravail')}}" >
                                 <span>Canevas de médecine de travail</span>
                             </a>
@@ -54,12 +54,12 @@
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <li>
                     <a href="{{url('/CommissionHygieneSecurite')}}">
                         <span>Commission d'unité Hygiène et Sécurité</span>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="{{url('/PlanHygieneSecurite')}}">
                         <span>Plan d'Hygiène et de Sécurité</span>
                     </a>
@@ -92,7 +92,6 @@
                 <span>SIE</span>
             </a>
             <ul class="ml-menu">
-                
                 <li>
                     <a href="pages/ui/notifications.html"></a>
                 </li>
@@ -138,6 +137,7 @@
     </ul>
 </div>
 @endsection
+@section('content')
 
 @section('content')
 <section class="content">
@@ -146,9 +146,7 @@
             <div class="row">
                 <div class="col-md-8"></div>
                 <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
-                    @if (! Auth::user()->is_admin)
-                        <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#commission">Nouvelle commission</button>
-                    @endif
+                    <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nvl">Nouvel utilisateur</button>
                 </div>
             </div>
         </div>
@@ -158,39 +156,61 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                           Commission d'unité Hygiène et Sécurité Par année:
+                            Unités :
                         </h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
+
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
-                                        <th>Intitulé</th>
-                                        <th>Année</th>
-                                        @if (Auth::user()->is_admin)
-                                            <th>Unité</th>
-                                        @endif
-                                        <th>Action</th>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Unité</th>
+                                        <th style="width: 20%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($commissions as $commission)
+                                    @foreach ($users as $user)
                                     <tr>
-                                        <td>Commissions Hygiene Securite année {{$commission->year}}</td>
-                                        <td >{{$commission->year}}</td>
-                                        @if (Auth::user()->is_admin)
-                                            @if ($commission->unite == 1)
-                                                <td>Unité Terga</td>
-                                            @else
-                                                <td>Unité Hennaya</td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>
+                                            @if (!$user->is_admin)
+                                            {{$user->unitee->nom}} 
                                             @endif
-                                        @endif
+                                        </td>
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url('/CommissionHygieneSecurite/show/'.$commission->year)}}" type="button" title="Détails" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
+                                                <a href="#supp{{ $user->id }}Modal" type="button" title="Supprimer" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </a>
+                                                <div class="modal fade" id="supp{{$user->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $user->id }}ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                Voulez-vous vraiment supprimer cette ligne? 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form class="form-inline" action="{{ url('users/'.$user->id)}}"  method="POST">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Non</button>
+                                                                    <button type="submit" class="btn btn-danger">Oui</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -207,13 +227,13 @@
     </div>
 </section>
 
-<div class="modal fade" id="commission" tabindex="-1" role="dialog">
+<div class="modal fade" id="nvl" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form action="{{url('/CommissionHygieneSecurite')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/users')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="largeModalLabel">Nouvelle commission d'unité Hygiene et Securite</h4>
+                    <h4 class="modal-title" id="largeModalLabel">Nouvel utilisateur</h4>
                 </div>
                 <div class="modal-body">
                     
@@ -221,101 +241,41 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="intitule" class="form-control" placeholder="Intitulé" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Identifiant" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+                                </div>
+                            </div>
+                            
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label style="margin-top: 10px">Date de commission</label>
+                                    <label style="margin-top: 10px">Administrateur ?</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="form-line">
-                                        <input type="month" name="date" class="form-control date" placeholder="Ex: 30/07/2016" required>
+                                    <div class="demo-radio-button">
+                                        <input name="is_admin" type="radio" id="admin_1" value="1">
+                                        <label for="admin_1">Oui</label>
+                                        <input name="is_admin" type="radio" id="admin_2" value="0" checked>
+                                        <label for="admin_2">Non</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>PV de la CHS</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="upload" name="file1" class="file-upload__input" type="file" accept="application/pdf" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>Nombre de réunions CHS</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="number" name="reunions_chs" class="form-control text-center" value="0" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>Nombre de réunions CHS extraordinaire</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="reunions_extra" type="number" name="reunions_extra" class="form-control text-center" value="0" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="file2" class="row" style="display: none">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>PV de la CHS extraordinaire</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group" >
-                                        <div class="form-line">
-                                            <input id="upload" name="file2" class="file-upload__input" type="file" accept="application/pdf">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>Nombre d'enquêtes menées par la CHS</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="number" name="nbr_enquete" class="form-control text-center" value="0" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 " style="margin-top: 10px" >
-                                    <div class="form-group">
-                                        <label>Nombre de cas de recours à un expert</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="number" name="cas_recours" class="form-control text-center" value="0" required>
-                                        </div>
-                                    </div>
+                            <div>
+                                <div class="form-line">
+                                    <select name="unite_id" class="form-control show-tick" required>
+                                        <option value="">-- Selectionnez une unité --</option>
+                                        @foreach ($unites as $unite)
+                                        <option value="{{$unite->id}}">{{$unite->nom}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -329,11 +289,5 @@
         </form>
     </div>
 </div>
-{{-- <script type="text/javascript">
-function file2() {
-    if(document.getElementById("reunions_extra").value == "1"){
-    document.getElementById("file2").style.display="block";
-    }
-}
-</script> --}}
+
 @endsection

@@ -2,7 +2,7 @@
 @extends('layouts.datatable')
 
 @section('titre')
-<title>Plan d'Hygiène et de Sécurité | APMC Divindus</title>
+<title>Unités APMC | APMC Divindus</title>
 @endsection
 
 @section('menu')
@@ -146,9 +146,7 @@
             <div class="row">
                 <div class="col-md-8"></div>
                 <div class="col-md-4 clearfix demo-button-sizes" style="float: right">
-                    @if (! Auth::user()->is_admin)
-                        <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#plan">Nouveau plan</button>
-                    @endif
+                    <button type="button" class="btn bg-teal btn-block btn-lg waves-effect" data-toggle="modal" data-target="#nvl">Nouvelle unité</button>
                 </div>
             </div>
         </div>
@@ -158,7 +156,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            Plan d'Hygiène et de Sécurité :
+                            Unités :
                         </h2>
                     </div>
                     <div class="body">
@@ -167,36 +165,27 @@
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
                                     <tr>
-                                        <th>Intitulé</th>
-                                        <th>Projet</th>
-                                        @if (Auth::user()->is_admin)
-                                            <th>Unité</th>
-                                        @endif
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Adresse</th>
                                         <th style="width: 20%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($plans as $plan)
+                                    @foreach ($unites as $unite)
                                     <tr>
-                                        <td>{{$plan->intitule}}</td>
-                                        <td >{{$plan->projet}}</td>
-                                        @if (Auth::user()->is_admin)
-                                            @if ($plan->unite == 1)
-                                                <td>Unité Terga</td>
-                                            @else
-                                                <td>Unité Hennaya</td>
-                                            @endif
-                                        @endif
+                                        <td>{{$unite->id}}</td>
+                                        <td>{{$unite->nom}}</td>
+                                        <td >{{$unite->adresse}}</td>
                                         <td >
                                             <div class="icon-button-demo">
-                                                <a href="{{url($plan->file)}}" target="_blanck" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#" title="Détails" type="button" class="btn bg-cyan btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
-                                                @if (!Auth::user()->is_admin)
-                                                <a href="#supp{{ $plan->id }}Modal" type="button" title="Supprimer" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                                <a href="#supp{{ $unite->id }}Modal" type="button" title="Supprimer" data-toggle="modal" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
                                                     <i class="material-icons">delete_forever</i>
                                                 </a>
-                                                <div class="modal fade" id="supp{{$plan->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $plan->id }}ModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="supp{{$unite->id }}Modal" tabindex="-1" role="dialog" aria-labelledby="supp{{ $unite->id }}ModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -208,7 +197,7 @@
                                                                 Voulez-vous vraiment supprimer cette ligne? 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form class="form-inline" action="{{ url('PlanHygieneSecurite/'.$plan->id)}}"  method="POST">
+                                                                <form class="form-inline" action="{{ url('unites/'.$unite->id)}}"  method="POST">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Non</button>
@@ -218,7 +207,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -235,13 +223,13 @@
     </div>
 </section>
 
-<div class="modal fade" id="plan" tabindex="-1" role="dialog">
+<div class="modal fade" id="nvl" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form action="{{url('/PlanHygieneSecurite')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/unites')}}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="largeModalLabel">Nouveau plan d'Hygiène et de Sécurité</h4>
+                    <h4 class="modal-title" id="largeModalLabel">Nouvelle unité</h4>
                 </div>
                 <div class="modal-body">
                     
@@ -249,17 +237,12 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="intitule" class="form-control" placeholder="Intitulé">
+                                    <input type="text" name="nom" class="form-control" placeholder="Nom">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="projet" class="form-control" placeholder="Projet">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input id="upload" name="file" class="file-upload__input" type="file" >
+                                    <input type="text" name="adresse" class="form-control" placeholder="Adresse">
                                 </div>
                             </div>
                         </div>
