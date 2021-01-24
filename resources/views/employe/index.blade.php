@@ -11,7 +11,7 @@
         <li>
             <a href="{{url('home')}}">
                 <i class="material-icons">home</i>
-                <span>Acceuil</span>
+                <span>Accueil</span>
             </a>
         </li>
         <li class="active">
@@ -235,6 +235,18 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-4 ">
+                                                                                    <label style="margin-top: 10px">Photo</label>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <div class="form-line">
+                                                                                            <input id="upload" name="file" class="file-upload__input" type="file" accept="image/*">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                             
                                                                             <div class="form-group row" style="margin-top: 10px">
                                                                                 <div class="col-md-4">
@@ -242,10 +254,10 @@
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <div class="demo-radio-button">
-                                                                                        <input name="sexe" type="radio" id="radio_9" value="Homme" {{ $employe->sexe == 'Homme' ? 'checked' : ''}}>
-                                                                                        <label for="radio_9">Homme</label>
-                                                                                        <input name="sexe" type="radio" id="radio_10" value="Femme" {{ $employe->sexe == 'Femme' ? 'checked' : ''}}>
-                                                                                        <label for="radio_10">Femme</label>
+                                                                                        <input name="sexe" type="radio" id="radio_23" value="Homme" {{ $employe->sexe == 'Homme' ? 'checked' : ''}}>
+                                                                                        <label for="radio_23">Homme</label>
+                                                                                        <input name="sexe" type="radio" id="radio_24" value="Femme" {{ $employe->sexe == 'Femme' ? 'checked' : ''}}>
+                                                                                        <label for="radio_24">Femme</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -268,10 +280,10 @@
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <div class="demo-radio-button">
-                                                                                        <input name="statut" type="radio" id="radio_11" value="Actif" {{ $employe->statut == 'Actif' ? 'checked' : ''}}>
-                                                                                        <label for="radio_11">Actif</label>
-                                                                                        <input name="statut" type="radio" id="radio_12" value="Non actif" {{ $employe->statut == 'Non actif' ? 'checked' : ''}}>
-                                                                                        <label for="radio_12">Non actif</label>
+                                                                                        <input name="statut" type="radio" id="radio_13" value="Actif" {{ $employe->statut == 'Actif' ? 'checked' : ''}}>
+                                                                                        <label for="radio_13">Actif</label>
+                                                                                        <input name="statut" type="radio" id="radio_14" value="Non actif" {{ $employe->statut == 'Non actif' ? 'checked' : ''}}>
+                                                                                        <label for="radio_14">Non actif</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -287,11 +299,58 @@
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Lieu de naissance</label>
+                                                                                </div>
+                                                                                <div class="col_md_8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" class="form-control" value="{{$employe->lieu_naissance}}" name="lieu_naissance" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Situaion familiale</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="demo-radio-button">
+                                                                                        <input name="situation" type="radio" id="radio_15" value="Célibataire" {{ $employe->situation == 'Célibataire' ? 'checked' : ''}}>
+                                                                                        <label for="radio_15">Célibataire</label>
+                                                                                        <input name="situation" type="radio" id="radio_16" value="Marié(e)" {{ $employe->situation == 'Marié(e)' ? 'checked' : ''}}>
+                                                                                        <label for="radio_16">Marié(e)</label>
+                                                                                        <input name="situation" type="radio" id="radio_17" value="Divorcé(e)" {{ $employe->situation == 'Divorcé(e)' ? 'checked' : ''}}>
+                                                                                        <label for="radio_17">Divorcé(e)</label>
+                                                                                        <input name="situation" type="radio" id="radio_18" value="Veuf(ve)" {{ $employe->situation == 'Veuf(ve)' ? 'checked' : ''}}>
+                                                                                        <label for="radio_18">Veuf(ve)</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">Adresse</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" class="form-control" name="adresse" value="{{ $employe->adresse }}" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
                                                                                     <label style="margin-top: 10px">Date de recrutement</label>
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <div class="form-line">
                                                                                         <input type="date" name="date_rec" class="form-control date" value="{{$employe->date_rec}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-4">
+                                                                                    <label style="margin-top: 10px">N° Sécurité sociale</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" name="num_sociale" value="{{ $employe->num_sociale }}" class="form-control" required>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -311,10 +370,10 @@
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <div class="demo-radio-button">
-                                                                                        <input name="poste_risque" type="radio" id="radio_13" value="Oui" {{ $employe->poste_risque == 'Oui' ? 'checked' : ''}}>
-                                                                                        <label for="radio_13">Oui</label>
-                                                                                        <input name="poste_risque" type="radio" id="radio_14" value="Non" {{ $employe->poste_risque == 'Non' ? 'checked' : ''}}>
-                                                                                        <label for="radio_14">Non</label>
+                                                                                        <input name="poste_risque" type="radio" id="radio_19" value="Oui" {{ $employe->poste_risque == 'Oui' ? 'checked' : ''}}>
+                                                                                        <label for="radio_19">Oui</label>
+                                                                                        <input name="poste_risque" type="radio" id="radio_20" value="Non" {{ $employe->poste_risque == 'Non' ? 'checked' : ''}}>
+                                                                                        <label for="radio_20">Non</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -324,10 +383,10 @@
                                                                                 </div>
                                                                                 <div class="col-md-8">
                                                                                     <div class="demo-radio-button">
-                                                                                        <input name="visite_embauche" type="radio" id="radio_15" value="Oui" {{ $employe->visite_embauche == 'Oui' ? 'checked' : ''}}>
-                                                                                        <label for="radio_15">Oui</label>
-                                                                                        <input name="visite_embauche" type="radio" id="radio_16" value="Non" {{ $employe->visite_embauche == 'Non' ? 'checked' : ''}}>
-                                                                                        <label for="radio_16">Non</label>
+                                                                                        <input name="visite_embauche" type="radio" id="radio_21" value="Oui" {{ $employe->visite_embauche == 'Oui' ? 'checked' : ''}}>
+                                                                                        <label for="radio_21">Oui</label>
+                                                                                        <input name="visite_embauche" type="radio" id="radio_22" value="Non" {{ $employe->visite_embauche == 'Non' ? 'checked' : ''}}>
+                                                                                        <label for="radio_22">Non</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -418,7 +477,20 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="nom" placeholder="Nom et prénom">
+                                    <input type="text" class="form-control" name="nom" placeholder="Nom et prénom" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label style="margin-top: 10px">Photo</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="upload" name="file" class="file-upload__input" type="file" accept="image/*">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -462,8 +534,35 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-line">
-                                        <input type="date" name="date_naissance" class="form-control date" placeholder="Ex: 30/07/2016">
+                                        <input type="date" name="date_naissance" class="form-control date" placeholder="Ex: 30/07/2016" required>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="lieu_naissance" placeholder="Lieu de naissance" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">Situaion familiale</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="demo-radio-button">
+                                        <input name="situation" type="radio" id="radio_9" value="Célibataire" checked="">
+                                        <label for="radio_9">Célibataire</label>
+                                        <input name="situation" type="radio" id="radio_10" value="Marié(e)">
+                                        <label for="radio_10">Marié(e)</label>
+                                        <input name="situation" type="radio" id="radio_11" value="Divorcé(e)">
+                                        <label for="radio_11">Divorcé(e)</label>
+                                        <input name="situation" type="radio" id="radio_12" value="Veuf(ve)">
+                                        <label for="radio_12">Veuf(ve)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="adresse" placeholder="Adresse" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -472,13 +571,23 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-line">
-                                        <input type="date" name="date_rec" class="form-control date" placeholder="Ex: 30/07/2016">
+                                        <input type="date" name="date_rec" class="form-control date" placeholder="Ex: 30/07/2016" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label style="margin-top: 10px">N° Sécurité sociale</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-line">
+                                        <input type="text" name="num_sociale" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="affectation" placeholder="Affectation">
+                                    <input type="text" class="form-control" name="affectation" placeholder="Affectation" required>
                                 </div>
                             </div>
                             <div class="form-group row">

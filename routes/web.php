@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -36,6 +36,7 @@ Route::get('/employes/profil/{id}','EmployeController@show');
 Route::post('/employes/import','EmployeController@import');
 Route::get('/employes/export','EmployeController@export');
 Route::delete('/employes/{id}','EmployeController@destroy');
+Route::get('/employes/exportProfil/{id}','EmployeController@exportProfil');
 
 //BAT
 Route::get('/BilanAccidentT','BatController@index');

@@ -59,10 +59,6 @@
                 <td>{{$declaration->responsable->nom}} </td>
             </tr>
             <tr>
-                <td style="width: 31%">Prénom : </td>
-                <td>{{$declaration->responsable->prenom}} </td>
-            </tr>
-            <tr>
                 <td style="width: 31%">Date de naissance : </td>
                 <td>{{$declaration->responsable->date_naissance}} </td>
             </tr>

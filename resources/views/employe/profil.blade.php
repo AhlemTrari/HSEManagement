@@ -11,7 +11,7 @@
         <li>
             <a href="{{url('home')}}">
                 <i class="material-icons">home</i>
-                <span>Acceuil</span>
+                <span>Accueil</span>
             </a>
         </li>
         <li class="active">
@@ -142,12 +142,18 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row clearfix">
+            <div class="row" style="margin-bottom: 25px">
+                <div class="col-md-9 col-lg-9"></div>
+                <div class="col-md-3 col-lg-3" style="float: right">
+                    <a href="{{url('/employes/exportProfil/'.$employe->id)}}" target="_blanck" type="button" class="btn bg-teal btn-block btn-lg waves-effect">Exporter le profil</a>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="card profile-card">
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
                         <div class="image-area">
-                            <img src="{{asset('assets/images/userDefault.png')}}" height="150px" alt="Profile Image" />
+                            <img src="{{asset($employe->photo)}}" height="150px" width="150px" alt="Profile Image" />
                         </div>
                         <div class="content-area">
                             <h3>{{$employe->nom}}</h3>
@@ -184,6 +190,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Profile</a></li>
                                 <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Medcine de travail</a></li>
+                                <li role="presentation"><a href="#postes" aria-controls="settings" role="tab" data-toggle="tab">Aménagements du poste</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -196,6 +203,18 @@
                                             {{$employe->matricule}}
                                         </div>
                                         <div class="col-md-2">
+                                            <b> Date de naissance </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->date_naissance}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <b> Lieu de naissance </b>
+                                        </div>
+                                        <div class="content col-md-10">
+                                            {{$employe->lieu_naissance}}
+                                        </div>
+                                        <div class="col-md-2">
                                             <b> Sexe</b>
                                         </div>
                                         <div class="content col-md-10">
@@ -206,12 +225,6 @@
                                         </div>
                                         <div class="content col-md-10">
                                             {{$employe->statut}}
-                                        </div>
-                                        <div class="col-md-2">
-                                            <b> Date de naissance </b>
-                                        </div>
-                                        <div class="content col-md-10">
-                                            {{$employe->date_naissance}}
                                         </div>
                                         <div class="col-md-2">
                                             <b> Date de recrutement </b>
@@ -266,6 +279,36 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div role="tabpanel" class="tab-pane fade in" id="postes">
+                                    <div class="table-responsive">
+
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                           
+                                            <thead>
+                                                <tr>
+                                                    <th>Ancien poste</th>
+                                                    <th>Nouveau poste</th>
+                                                    <th>Date de visite après changement</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                @foreach ($employe->amenagements as $amenagement)
+                                                <tr>
+                                                    <td class="text-center">{{$amenagement->old_post}}</td>
+                                                    <td class="text-center">{{$amenagement->new_post}}</td>
+                                                    <td >
+                                                        @if (! $amenagement->visite) - @endif
+                                                        {{$amenagement->date}}
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

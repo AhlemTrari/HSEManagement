@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
 	    $admin->name = 'Admin';
 	    $admin->email = 'admin@gmail.com';
 	    $admin->unite = 0;
-	    $admin->unite_id = 0;
+	    $admin->unite_id = 1;
 	    $admin->password = Hash::make('password');
 	    $admin->is_admin = 1;
 	    $admin->save();

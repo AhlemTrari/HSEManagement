@@ -14,6 +14,7 @@ class EmployeSeeder extends Seeder
     {
         $employe1 = new Employe();
 	    $employe1->matricule = '098769';
+	    $employe1->photo = 'assets/images/userDefault.png';
 	    $employe1->nom = 'Trari Bouchra';
 	    $employe1->fonction = 'Secretaire De Direct';
 	    $employe1->unite = 2;
@@ -28,6 +29,7 @@ class EmployeSeeder extends Seeder
 
         $employe2 = new Employe();
 	    $employe2->matricule = '098712';
+	    $employe2->photo = 'assets/images/userDefault.png';
 	    $employe2->nom = 'Triki Moh';
 	    $employe2->fonction = 'Chef departement';
 	    $employe2->unite = 2;

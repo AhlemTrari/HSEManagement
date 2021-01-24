@@ -12,7 +12,7 @@
         <li>
             <a href="{{url('home')}}">
                 <i class="material-icons">home</i>
-                <span>Acceuil</span>
+                <span>Accueil</span>
             </a>
         </li>
         <li>
@@ -42,7 +42,7 @@
                         <span>Médecine de travail</span>
                     </a>
                     <ul class="ml-menu">
-                        <li >
+                        <li>
                             <a href="{{url('/MedcineDeTravail')}}" >
                                 <span>Canevas de médecine de travail</span>
                             </a>

@@ -116,110 +116,123 @@ class BatController extends Controller
     {
         $bilans = BilanMensuel::where('annee',$request->input('annee'))
                                 ->where('mois',$request->input('mois'))
-                                ->where('unite',Auth::user()->unite)
+                                ->where('unite_id',Auth::user()->unite_id)
                                 ->get();
         if ($bilans->isNotEmpty()) {
             return back()->with('warning', "Bilan existe déja");
         }
 
-        $bilan = new BilanMensuel();
+        $bilanAnnuel = BilanAnnuel::where('annee',$request->input('annee'))->first();
 
-        if ( $request->input('mois') == 'Janvier') {
+        if (!$bilanAnnuel) {
             $bilanAnnuel = new BilanAnnuel();
             $bilanAnnuel->annee = $request->input('annee');
-            $bilanAnnuel->unite = Auth::user()->unite;
+            $bilanAnnuel->unite_id = Auth::user()->unite_id;
             $bilanAnnuel->save();
+        } 
+        
+        $bilan = new BilanMensuel();
+        
+        if (in_array($request->input('mois'),array('Janvier','Février','Mars','Avril','Mai','Juin'))) {
 
-            $bilanSemestriel = new BilanSemestriel();
-            $bilanSemestriel->annee = $request->input('annee');
-            $bilanSemestriel->semestre = 'S1';
-            $bilanSemestriel->unite = Auth::user()->unite;
-            $bilanSemestriel->bilan_annuel_id = $bilanAnnuel->id;
-            $bilanSemestriel->save();
-            
-            
-            $bilanTrimestriel = new BilanTrimestriel();
-            $bilanTrimestriel->annee = $request->input('annee');
-            $bilanTrimestriel->trimestre = 'T1';
-            $bilanTrimestriel->unite = Auth::user()->unite;
-            $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
-            $bilanTrimestriel->save();
+            $bs = BilanSemestriel::where('annee',$request->input('annee'))
+                                    ->where('semestre','S1')->first();
+            if ($bs->isNotEmpty()) {
+                $bilanSemestriel = new BilanSemestriel();
+                $bilanSemestriel->annee = $request->input('annee');
+                $bilanSemestriel->semestre = 'S1';
+                $bilanSemestriel->unite_id = Auth::user()->unite_id;
+                $bilanSemestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanSemestriel->save();
+            } else {
+                # code...
+            }
 
-            $bilan->bilan_annuel_id = $bilanAnnuel->id;
-            $bilan->bilan_semestriel_id = $bilanSemestriel->id;
-            $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-        }
-        elseif($request->input('mois') == 'Avril'){
-            $bilanTrimestriel = new BilanTrimestriel();
-            $bilanTrimestriel->annee = $request->input('annee');
-            $bilanTrimestriel->trimestre = 'T2';
-            $bilanTrimestriel->unite = Auth::user()->unite;
-            $bilanTrimestriel->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
+            if (in_array($request->input('mois'),array('Janvier','Février','Mars') )) {
+                $b= BilanTrimestriel::where('annee',$request->input('annee'))
+                                    ->where('trimestre','T1')->first();
+            }
+
+            if (in_array($request->input('mois'),array('Avril','Mai','Juin'))) {
+                $b= BilanTrimestriel::where('annee',$request->input('annee'))
+                                    ->where('trimestre','T1')->first();
+            }
+
+            if ( $request->input('mois') == 'Janvier') {
+                
+                
+                $bilanTrimestriel = new BilanTrimestriel();
+                $bilanTrimestriel->annee = $request->input('annee');
+                $bilanTrimestriel->trimestre = 'T1';
+                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
+                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanTrimestriel->save();
+
+                $bilan->bilan_annuel_id = $bilanAnnuel->id;
+                $bilan->bilan_semestriel_id = $bilanSemestriel->id;
+                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+            }
+        } else {
+            if($request->input('mois') == 'Avril'){
+                $bilanTrimestriel = new BilanTrimestriel();
+                $bilanTrimestriel->annee = $request->input('annee');
+                $bilanTrimestriel->trimestre = 'T2';
+                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
+                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanTrimestriel->save();
+    
+                $bilan->bilan_annuel_id = $bilanAnnuel->id;
+                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
                                                             ->latest()->first()->id;
-            $bilanTrimestriel->save();
-
-            $bilan->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
-                                                ->latest()->first()->id;
-            $bilan->bilan_semestriel_id = BilanSemestriel::where('unite',Auth::user()->unite)
-                                                        ->latest()->first()->id;
-            $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-        }
-
-        elseif($request->input('mois') == 'Juillet'){
-            $bilanTrimestriel = new BilanTrimestriel();
-            $bilanTrimestriel->annee = $request->input('annee');
-            $bilanTrimestriel->trimestre = 'T3';
-            $bilanTrimestriel->unite = Auth::user()->unite;
-            $bilanTrimestriel->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
+                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+            }
+            elseif($request->input('mois') == 'Juillet'){
+                $bilanTrimestriel = new BilanTrimestriel();
+                $bilanTrimestriel->annee = $request->input('annee');
+                $bilanTrimestriel->trimestre = 'T3';
+                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
+                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanTrimestriel->save();
+    
+                $bilanSemestriel = new BilanSemestriel();
+                $bilanSemestriel->annee = $request->input('annee');
+                $bilanSemestriel->semestre = 'S2';
+                $bilanSemestriel->unite_id = Auth::user()->unite_id;
+                $bilanSemestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanSemestriel->save();
+    
+                $bilan->bilan_annuel_id = $bilanAnnuel->id;
+                $bilan->bilan_semestriel_id = $bilanSemestriel->id;
+                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+            }
+            elseif($request->input('mois') == 'Octobre'){
+                $bilanTrimestriel = new BilanTrimestriel();
+                $bilanTrimestriel->annee = $request->input('annee');
+                $bilanTrimestriel->trimestre = 'T4';
+                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
+                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
+                $bilanTrimestriel->save();
+    
+                $bilan->bilan_annuel_id = $bilanAnnuel->id;
+                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
                                                             ->latest()->first()->id;
-            $bilanTrimestriel->save();
-
-            $bilanSemestriel = new BilanSemestriel();
-            $bilanSemestriel->annee = $request->input('annee');
-            $bilanSemestriel->semestre = 'S2';
-            $bilanSemestriel->unite = Auth::user()->unite;
-            $bilanSemestriel->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
-                                                        ->latest()->first()->id;
-            $bilanSemestriel->save();
-
-            $bilan->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
-                                                    ->latest()->first()->id;
-            $bilan->bilan_semestriel_id = $bilanSemestriel->id;
-            $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-        }
-
-        elseif($request->input('mois') == 'Octobre'){
-            $bilanTrimestriel = new BilanTrimestriel();
-            $bilanTrimestriel->annee = $request->input('annee');
-            $bilanTrimestriel->trimestre = 'T4';
-            $bilanTrimestriel->unite = Auth::user()->unite;
-            $bilanTrimestriel->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
+                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+            }
+            else{
+                $bilan->bilan_annuel_id = $bilanAnnuel->id;
+                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
                                                             ->latest()->first()->id;
-            $bilanTrimestriel->save();
-
-            $bilan->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
-                                                ->latest()->first()->id;
-            $bilan->bilan_semestriel_id = BilanSemestriel::where('unite',Auth::user()->unite)
-                                                        ->latest()->first()->id;
-            $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+                $bilan->bilan_trimestriel_id = BilanTrimestriel::where('unite_id',Auth::user()->unite_id)
+                                                                ->latest()->first()->id;
+            }
         }
-        else{
-            $bilan->bilan_annuel_id = BilanAnnuel::where('unite',Auth::user()->unite)
-                                                ->latest()->first()->id;
-            $bilan->bilan_semestriel_id = BilanSemestriel::where('unite',Auth::user()->unite)
-                                                        ->latest()->first()->id;
-            $bilan->bilan_trimestriel_id = BilanTrimestriel::where('unite',Auth::user()->unite)
-                                                            ->latest()->first()->id;
-        }
-
-            
             // $bilan->annee = now()->year;
             // $bilan->mois = now()->month;
             $bilan->annee = $request->input('annee');
             $bilan->mois = $request->input('mois');
             $bilan->nbr_accidents = $request->input('nbr_accidents');
             $bilan->nbr_jours = $request->input('nbr_jours');
-            $bilan->unite = Auth::user()->unite;
+            $bilan->unite_id = Auth::user()->unite_id;
             $bilan->save();
 
             $jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
@@ -281,13 +294,15 @@ class BatController extends Controller
                                 ->where('mois',$mois)
                                 ->where('unite',2)
                                 ->first();
-        
-        if ($bilanHennaya && $bilanTerga) {
+        //$bilans_ids[] = les ids des bilans mensuels 
+        if ($bilanHennaya && $bilanTerga)
+        {
         $consolideParJours = DB::table('accident_par_jours')
                                 ->select(DB::raw('sum(avec_arret) as accidentsAvec, sum(sans_arret) as accidentsSans, jour'))
                                 ->orderBy('created_at')
                                 ->where('bilan_id',$bilanTerga->id)
                                 ->orWhere('bilan_id',$bilanHennaya->id)
+                                //whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('jour')
                                 ->get();
         $consolideParHeur = DB::table('accident_par_heurs')

@@ -28,8 +28,12 @@ class Employe extends Model
     {
         return $this->hasMany('App\Induction','employe_id');
     }
-    public function unite()
+    public function amenagements()
+    {
+        return $this->hasMany('App\Amenagement','employe_id');
+    }
+    public function unitee()
 	{
-	    return $this->belongsTo('App\Unite');
+	    return $this->belongsTo('App\Unite','unite_id');
 	}
 }

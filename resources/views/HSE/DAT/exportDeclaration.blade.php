@@ -59,10 +59,6 @@
                 <td>{{$declaration->victime->nom}} </td>
             </tr>
             <tr>
-                <td style="width: 31%">Prénom : </td>
-                <td>{{$declaration->victime->prenom}} </td>
-            </tr>
-            <tr>
                 <td style="width: 31%">Date de naissance : </td>
                 <td>{{$declaration->victime->date_naissance}} </td>
             </tr>
@@ -189,12 +185,6 @@
                 <td>Nom :</td>
                 <td colspan="2">
                     {{$declaration->tiers->nom}}
-                </td>
-            </tr>
-            <tr>
-                <td>Prénom :</td>
-                <td colspan="2">
-                    {{$declaration->tiers->prenom}}
                 </td>
             </tr>
             <tr>

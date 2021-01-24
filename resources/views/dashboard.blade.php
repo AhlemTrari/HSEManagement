@@ -11,7 +11,7 @@
         <li class="active">
             <a href="{{url('home')}}">
                 <i class="material-icons">home</i>
-                <span>Acceuil</span>
+                <span>Accueil</span>
             </a>
         </li>
         <li>
