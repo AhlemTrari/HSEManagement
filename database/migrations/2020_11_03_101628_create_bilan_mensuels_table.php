@@ -20,6 +20,8 @@ class CreateBilanMensuelsTable extends Migration
             $table->integer('nbr_accidents')->nullable();
             $table->integer('nbr_jours')->nullable();
             $table->integer('unite')->nullable(); // 1->targa; 2->hennaya
+            $table->string('trimestre')->nullable();
+            $table->string('semestre')->nullable();
             $table->unsignedBigInteger('unite_id')->nullable();
             $table->foreign('unite_id')->references('id')->on('unites')->onDelete('restrict');
             $table->unsignedBigInteger('bilan_trimestriel_id')->nullable();

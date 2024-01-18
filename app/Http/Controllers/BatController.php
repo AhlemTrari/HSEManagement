@@ -83,7 +83,6 @@ class BatController extends Controller
             ->where('annee',$annee)
             ->groupBy('semestre')
             ->get();
-
         }else {
             $bilans = BilanMensuel::where('annee', $annee)
                     ->where('unite', Auth::user()->unite)
@@ -132,102 +131,24 @@ class BatController extends Controller
         } 
         
         $bilan = new BilanMensuel();
+        $bilan->bilan_annuel_id = $bilanAnnuel->id;
         
         if (in_array($request->input('mois'),array('Janvier','Février','Mars','Avril','Mai','Juin'))) {
-
-            $bs = BilanSemestriel::where('annee',$request->input('annee'))
-                                    ->where('semestre','S1')->first();
-            if ($bs->isNotEmpty()) {
-                $bilanSemestriel = new BilanSemestriel();
-                $bilanSemestriel->annee = $request->input('annee');
-                $bilanSemestriel->semestre = 'S1';
-                $bilanSemestriel->unite_id = Auth::user()->unite_id;
-                $bilanSemestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanSemestriel->save();
-            } else {
-                # code...
-            }
+            $bilan->semestre = 'S1';
 
             if (in_array($request->input('mois'),array('Janvier','Février','Mars') )) {
-                $b= BilanTrimestriel::where('annee',$request->input('annee'))
-                                    ->where('trimestre','T1')->first();
-            }
-
-            if (in_array($request->input('mois'),array('Avril','Mai','Juin'))) {
-                $b= BilanTrimestriel::where('annee',$request->input('annee'))
-                                    ->where('trimestre','T1')->first();
-            }
-
-            if ( $request->input('mois') == 'Janvier') {
-                
-                
-                $bilanTrimestriel = new BilanTrimestriel();
-                $bilanTrimestriel->annee = $request->input('annee');
-                $bilanTrimestriel->trimestre = 'T1';
-                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
-                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanTrimestriel->save();
-
-                $bilan->bilan_annuel_id = $bilanAnnuel->id;
-                $bilan->bilan_semestriel_id = $bilanSemestriel->id;
-                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
+                $bilan->trimestre = 'T1';
+            }else{
+            $bilan->trimestre = 'T2';
             }
         } else {
-            if($request->input('mois') == 'Avril'){
-                $bilanTrimestriel = new BilanTrimestriel();
-                $bilanTrimestriel->annee = $request->input('annee');
-                $bilanTrimestriel->trimestre = 'T2';
-                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
-                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanTrimestriel->save();
-    
-                $bilan->bilan_annuel_id = $bilanAnnuel->id;
-                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
-                                                            ->latest()->first()->id;
-                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-            }
-            elseif($request->input('mois') == 'Juillet'){
-                $bilanTrimestriel = new BilanTrimestriel();
-                $bilanTrimestriel->annee = $request->input('annee');
-                $bilanTrimestriel->trimestre = 'T3';
-                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
-                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanTrimestriel->save();
-    
-                $bilanSemestriel = new BilanSemestriel();
-                $bilanSemestriel->annee = $request->input('annee');
-                $bilanSemestriel->semestre = 'S2';
-                $bilanSemestriel->unite_id = Auth::user()->unite_id;
-                $bilanSemestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanSemestriel->save();
-    
-                $bilan->bilan_annuel_id = $bilanAnnuel->id;
-                $bilan->bilan_semestriel_id = $bilanSemestriel->id;
-                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-            }
-            elseif($request->input('mois') == 'Octobre'){
-                $bilanTrimestriel = new BilanTrimestriel();
-                $bilanTrimestriel->annee = $request->input('annee');
-                $bilanTrimestriel->trimestre = 'T4';
-                $bilanTrimestriel->unite_id = Auth::user()->unite_id;
-                $bilanTrimestriel->bilan_annuel_id = $bilanAnnuel->id;
-                $bilanTrimestriel->save();
-    
-                $bilan->bilan_annuel_id = $bilanAnnuel->id;
-                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
-                                                            ->latest()->first()->id;
-                $bilan->bilan_trimestriel_id = $bilanTrimestriel->id;
-            }
-            else{
-                $bilan->bilan_annuel_id = $bilanAnnuel->id;
-                $bilan->bilan_semestriel_id = BilanSemestriel::where('unite_id',Auth::user()->unite_id)
-                                                            ->latest()->first()->id;
-                $bilan->bilan_trimestriel_id = BilanTrimestriel::where('unite_id',Auth::user()->unite_id)
-                                                                ->latest()->first()->id;
+            $bilan->semestre = 'S2';
+            if(in_array($request->input('mois'),array('Juillet','Aout','Septembre') )){
+                $bilan->trimestre = 'T1';
+            }else{
+                $bilan->trimestre = 'T2';
             }
         }
-            // $bilan->annee = now()->year;
-            // $bilan->mois = now()->month;
             $bilan->annee = $request->input('annee');
             $bilan->mois = $request->input('mois');
             $bilan->nbr_accidents = $request->input('nbr_accidents');
@@ -286,97 +207,97 @@ class BatController extends Controller
 
     public function showBilanMoisA($mois,$annee)
     {
-        $bilanTerga = BilanMensuel::where('annee',$annee)
+        $bilans = BilanMensuel::where('annee',$annee)
                                 ->where('mois',$mois)
-                                ->where('unite',1)
-                                ->first();
-        $bilanHennaya = BilanMensuel::where('annee',$annee)
-                                ->where('mois',$mois)
-                                ->where('unite',2)
-                                ->first();
-        //$bilans_ids[] = les ids des bilans mensuels 
-        if ($bilanHennaya && $bilanTerga)
-        {
+                                ->get();
+
+        // $bilanTerga = BilanMensuel::where('annee',$annee)
+        //                         ->where('mois',$mois)
+        //                         ->where('unite',1)
+        //                         ->first();
+        // $bilanHennaya = BilanMensuel::where('annee',$annee)
+        //                         ->where('mois',$mois)
+        //                         ->where('unite',2)
+        //                         ->first();
+
+        $bilans_ids[] = 'les ids des bilans mensuels' ;
+        
         $consolideParJours = DB::table('accident_par_jours')
                                 ->select(DB::raw('sum(avec_arret) as accidentsAvec, sum(sans_arret) as accidentsSans, jour'))
                                 ->orderBy('created_at')
-                                ->where('bilan_id',$bilanTerga->id)
-                                ->orWhere('bilan_id',$bilanHennaya->id)
-                                //whereIn('bilan_id',$bilans_ids)
+                                ->whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('jour')
                                 ->get();
         $consolideParHeur = DB::table('accident_par_heurs')
                                 ->select(DB::raw('sum(nbr_accidents) as accidents, heure'))
                                 ->orderBy('created_at')
-                                ->where('bilan_id',$bilanTerga->id)
-                                ->orWhere('bilan_id',$bilanHennaya->id)
+                                ->whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('heure')
                                 ->get();           
         $consolideParAnc = DB::table('accident_par_anciennetes')
                                 ->select(DB::raw('sum(nbr_accidents) as accidents, anciennete'))
                                 ->orderBy('created_at')
-                                ->where('bilan_id',$bilanTerga->id)
-                                ->orWhere('bilan_id',$bilanHennaya->id)
+                                ->whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('anciennete')
                                 ->get();    
         $consolideParSiege = DB::table('accident_par_sieges')
                                 ->select(DB::raw('sum(nbr_accidents) as accidents, siege_lesions'))
                                 ->orderBy('created_at')
-                                ->where('bilan_id',$bilanTerga->id)
-                                ->orWhere('bilan_id',$bilanHennaya->id)
+                                ->whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('siege_lesions')
                                 ->get();  
         $consolideParFct = DB::table('accident_par_fcts')
                                 ->select(DB::raw('sum(nbr_accidents) as accidents, fonction'))
                                 ->orderBy('created_at')
-                                ->where('bilan_id',$bilanTerga->id)
-                                ->orWhere('bilan_id',$bilanHennaya->id)
+                                ->whereIn('bilan_id',$bilans_ids)
                                 ->groupBy('fonction')
                                 ->get();
-        $accidents_total = $bilanHennaya->nbr_accidents + $bilanTerga->nbr_accidents;
-        $jours_total = $bilanHennaya->nbr_jours + $bilanTerga->nbr_jours;
-        $parJoursH = $bilanHennaya->accidentsParJour;
-        foreach ($consolideParJours as $key => $value) {
-            $totalParJour[] = $value->accidentsAvec + $value->accidentsSans;
-        }
+
+        // $accidents_total = $bilanHennaya->nbr_accidents + $bilanTerga->nbr_accidents;
+        // $jours_total = $bilanHennaya->nbr_jours + $bilanTerga->nbr_jours;
+        // $parJoursH = $bilanHennaya->accidentsParJour;
+        // foreach ($consolideParJours as $key => $value) {
+        //     $totalParJour[] = $value->accidentsAvec + $value->accidentsSans;
+        // }
         
-        }else{
-            $accidents_total = null;
-            $jours_total = null; 
-            $totalParJour[]=null;
-            $consolideParJours =null;
-            $consolideParHeur =null;
-            $consolideParSiege =null;
-            $consolideParAnc =null;
-            $consolideParFct =null;
-        }
+        // }else{
+        //     $accidents_total = null;
+        //     $jours_total = null; 
+        //     $totalParJour[]=null;
+        //     $consolideParJours =null;
+        //     $consolideParHeur =null;
+        //     $consolideParSiege =null;
+        //     $consolideParAnc =null;
+        //     $consolideParFct =null;
+        // }
         
-        if ($bilanHennaya) {
-            $parJoursH = $bilanHennaya->accidentsParJour;
-            foreach ($parJoursH as $key => $value) {
-                $totalParJourH[] = $value->avec_arret + $value->sans_arret;
-            }
-        }else{
-            $totalParJourH[]=null;
-        }
-        if ($bilanTerga) {
-            $parJoursT = $bilanTerga->accidentsParJour;
+        // if ($bilanHennaya) {
+        //     $parJoursH = $bilanHennaya->accidentsParJour;
+        //     foreach ($parJoursH as $key => $value) {
+        //         $totalParJourH[] = $value->avec_arret + $value->sans_arret;
+        //     }
+        // }else{
+        //     $totalParJourH[]=null;
+        // }
+        // if ($bilanTerga) {
+        //     $parJoursT = $bilanTerga->accidentsParJour;
         
-            foreach ($parJoursT as $key => $value) {
-                $totalParJourT[] = $value->avec_arret + $value->sans_arret;
-            }
-        }else{
-            $totalParJourT[]=null;
-        }
+        //     foreach ($parJoursT as $key => $value) {
+        //         $totalParJourT[] = $value->avec_arret + $value->sans_arret;
+        //     }
+        // }else{
+        //     $totalParJourT[]=null;
+        // }
         
         return view('HSE.BAT.showBilanMoisAdmin')->with([
-            'bilanHennaya' => $bilanHennaya,
-            'bilanTerga' =>$bilanTerga,
-            'totalParJourH' => $totalParJourH,
-            'totalParJourT' => $totalParJourT,
-            'totalParJour' => $totalParJour,
-            'accidents_total' => $accidents_total,
-            'jours_total' => $jours_total,
+            // 'bilanHennaya' => $bilanHennaya,
+            // 'bilanTerga' =>$bilanTerga,
+            'bilans' =>$bilans,
+            // 'totalParJourH' => $totalParJourH,
+            // 'totalParJourT' => $totalParJourT,
+            // 'totalParJour' => $totalParJour,
+            // 'accidents_total' => $accidents_total,
+            // 'jours_total' => $jours_total,
             'consolideParJours' => $consolideParJours,
             'consolideParHeur' => $consolideParHeur,
             'consolideParSiege' => $consolideParSiege,
